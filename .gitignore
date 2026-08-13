@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.pyc
+
+# Local runtime state — not code
+runner_log.jsonl
+RUNNER_DISABLED
