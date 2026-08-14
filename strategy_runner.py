@@ -117,13 +117,19 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--dry-run", action="store_true", help="Log intended actions without submitting orders.")
     parser.add_argument("--force", action="store_true", help="Bypass the market-hours guard (testing only).")
+    parser.add_argument(
+        "--protection-only", action="store_true",
+        help="Only audit held positions for missing stop/target protection and repair; skip the signal scan "
+             "and the market-must-be-closed guard. Meant to run frequently during market hours as a companion "
+             "to the once-daily full run.",
+    )
     args = parser.parse_args()
 
     if KILL_SWITCH_FILE.exists():
         log_event("halted", reason=f"kill switch present ({KILL_SWITCH_FILE.name})")
         return
 
-    if market_is_open_now() and not args.force:
+    if market_is_open_now() and not args.force and not args.protection_only:
         log_event("halted", reason="market is open; this runner expects to run after close on a completed daily bar")
         return
 
@@ -144,11 +150,8 @@ def main():
     last_equity = float(account.last_equity) if float(account.last_equity) else equity
     daily_pnl_pct = (equity - last_equity) / last_equity if last_equity else 0.0
 
-    log_event("run_start", dry_run=args.dry_run, equity=equity, daily_pnl_pct=round(daily_pnl_pct * 100, 2))
-
-    if daily_pnl_pct <= -DAILY_LOSS_BREAKER_PCT:
-        log_event("circuit_breaker_tripped", daily_pnl_pct=round(daily_pnl_pct * 100, 2), threshold_pct=-DAILY_LOSS_BREAKER_PCT * 100)
-        return
+    log_event("run_start", dry_run=args.dry_run, protection_only=args.protection_only,
+               equity=equity, daily_pnl_pct=round(daily_pnl_pct * 100, 2))
 
     positions_df = broker_alpaca.get_positions(client)
     held_symbols = set(positions_df["symbol"]) if not positions_df.empty else set()
@@ -159,10 +162,21 @@ def main():
     available_slots = MAX_CONCURRENT_POSITIONS - len(committed_symbols)
     log_event("portfolio_state", held=sorted(held_symbols), pending=sorted(pending_symbols), available_slots=available_slots)
 
+    # Runs unconditionally, even if the circuit breaker below trips or this is a
+    # protection-only pass — protecting an existing position is never gated on
+    # whether new entries are currently allowed.
     protection_state = load_protection_state()
     verify_and_repair_protection(client, held_symbols, pending_symbols, protection_state, args.dry_run)
     protection_state = {sym: v for sym, v in protection_state.items() if sym in held_symbols}
     save_protection_state(protection_state)
+
+    if args.protection_only:
+        log_event("run_end", reason="protection-only run")
+        return
+
+    if daily_pnl_pct <= -DAILY_LOSS_BREAKER_PCT:
+        log_event("circuit_breaker_tripped", daily_pnl_pct=round(daily_pnl_pct * 100, 2), threshold_pct=-DAILY_LOSS_BREAKER_PCT * 100)
+        return
 
     if available_slots <= 0:
         log_event("run_end", reason="no available position slots")

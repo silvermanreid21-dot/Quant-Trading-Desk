@@ -47,9 +47,12 @@ Open a fresh terminal afterward — `setx` doesn't propagate into already-runnin
 ```powershell
 .venv\Scripts\python strategy_runner.py --dry-run   # logs intended actions, submits nothing
 .venv\Scripts\python strategy_runner.py              # live paper submission
+.venv\Scripts\python strategy_runner.py --protection-only  # audit/repair held-position stops only
 ```
 
 For unattended scheduling, point Windows Task Scheduler at `.venv\Scripts\python.exe strategy_runner.py`, timed for after market close on weekdays. If the task is set to run whether logged on or not, make sure `DisallowStartIfOnBatteries` is off if this runs on a laptop that isn't always plugged in — Task Scheduler silently skips the run otherwise.
+
+Alpaca's bracket/OCO exit legs have been observed to silently expire/cancel shortly after entry fill, leaving a held position with no live stop-loss or take-profit. `strategy_runner.py` self-heals this on every run (using `protection_state.json`, a local file recording each position's original stop/target — not committed, since it's runtime state). A second scheduled task runs `--protection-only` every 30 minutes during market hours (9:35am-4:00pm ET, weekdays) so a vanished stop doesn't sit unprotected until the next full run.
 
 ## Disclaimer
 
