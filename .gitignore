@@ -5,3 +5,4 @@ __pycache__/
 # Local runtime state — not code
 runner_log.jsonl
 RUNNER_DISABLED
+protection_state.json

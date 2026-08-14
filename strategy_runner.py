@@ -22,6 +22,12 @@ same limits):
   tab. Fails open (doesn't block) if no options chain is available. Note: this
   gate only exists live — strategy_backtest.py has no historical options data,
   so backtested results don't reflect it.
+- Self-healing protection check: Alpaca's bracket/OCO exit legs have twice been
+  observed to vanish (expired/canceled) shortly after entry fill, leaving a held
+  position with no live stop-loss or take-profit. Every run now audits every held
+  position before scanning for new signals, and resubmits the stop/target from
+  protection_state.json (written when the entry was originally submitted) if no
+  live protective order is found.
 - Every decision — scanned, skipped, signaled, submitted, or errored — is
   appended to runner_log.jsonl for after-the-fact auditing.
 
@@ -47,6 +53,7 @@ from universe import SP100
 HERE = Path(__file__).parent
 KILL_SWITCH_FILE = HERE / "RUNNER_DISABLED"
 LOG_FILE = HERE / "runner_log.jsonl"
+PROTECTION_STATE_FILE = HERE / "protection_state.json"
 
 MAX_CONCURRENT_POSITIONS = 5
 RISK_PER_TRADE_PCT = 0.02
@@ -59,6 +66,44 @@ def log_event(event: str, **fields):
     with open(LOG_FILE, "a") as f:
         f.write(json.dumps(entry, default=str) + "\n")
     print(entry)
+
+
+def load_protection_state() -> dict:
+    if not PROTECTION_STATE_FILE.exists():
+        return {}
+    with open(PROTECTION_STATE_FILE) as f:
+        return json.load(f)
+
+
+def save_protection_state(state: dict):
+    with open(PROTECTION_STATE_FILE, "w") as f:
+        json.dump(state, f, indent=2)
+
+
+def verify_and_repair_protection(client, held_symbols: set, pending_symbols: set, state: dict, dry_run: bool):
+    """Alpaca's bracket/OCO exit legs have twice vanished (expired/canceled) shortly
+    after entry fill, leaving a held position with no live stop-loss or take-profit —
+    happened to FDX and MRK. Rather than relying on a human to notice during a status
+    check, every run now audits each held position for a live protective order and
+    resubmits from the last known stop/target if one is missing."""
+    for symbol in sorted(held_symbols):
+        if symbol in pending_symbols:
+            continue  # has at least one live open order already
+        remembered = state.get(symbol)
+        if not remembered:
+            log_event("protection_missing_no_state", symbol=symbol,
+                       reason="position held with no open orders and no remembered stop/target to repair with")
+            continue
+        if dry_run:
+            log_event("dry_run_protection_repair", symbol=symbol, **remembered)
+            continue
+        try:
+            order = broker_alpaca.place_oco_exit_order(
+                client, symbol, remembered["qty"], remembered["stop_price"], remembered["target_price"]
+            )
+            log_event("protection_repaired", symbol=symbol, order_id=str(order.id), **remembered)
+        except Exception as e:
+            log_event("protection_repair_error", symbol=symbol, error=str(e))
 
 
 def market_is_open_now() -> bool:
@@ -114,6 +159,11 @@ def main():
     available_slots = MAX_CONCURRENT_POSITIONS - len(committed_symbols)
     log_event("portfolio_state", held=sorted(held_symbols), pending=sorted(pending_symbols), available_slots=available_slots)
 
+    protection_state = load_protection_state()
+    verify_and_repair_protection(client, held_symbols, pending_symbols, protection_state, args.dry_run)
+    protection_state = {sym: v for sym, v in protection_state.items() if sym in held_symbols}
+    save_protection_state(protection_state)
+
     if available_slots <= 0:
         log_event("run_end", reason="no available position slots")
         return
@@ -161,6 +211,8 @@ def main():
             try:
                 order = broker_alpaca.place_bracket_market_order(client, symbol, "BUY", qty, stop_price, target_price)
                 log_event("order_submitted", symbol=symbol, qty=qty, stop_price=round(stop_price, 2), target_price=round(target_price, 2), order_id=str(order.id))
+                protection_state[symbol] = {"qty": qty, "stop_price": round(stop_price, 2), "target_price": round(target_price, 2)}
+                save_protection_state(protection_state)
             except Exception as e:
                 log_event("order_error", symbol=symbol, error=str(e))
                 continue
