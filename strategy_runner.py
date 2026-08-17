@@ -22,12 +22,16 @@ same limits):
   tab. Fails open (doesn't block) if no options chain is available. Note: this
   gate only exists live — strategy_backtest.py has no historical options data,
   so backtested results don't reflect it.
-- Self-healing protection check: Alpaca's bracket/OCO exit legs have twice been
-  observed to vanish (expired/canceled) shortly after entry fill, leaving a held
-  position with no live stop-loss or take-profit. Every run now audits every held
-  position before scanning for new signals, and resubmits the stop/target from
-  protection_state.json (written when the entry was originally submitted) if no
-  live protective order is found.
+- Self-healing protection check: Alpaca's bracket/OCO exit legs have repeatedly
+  been observed to vanish (expired/canceled) after entry fill — sometimes both
+  legs, sometimes just the stop while the target survives. Every run now audits
+  every held position for a live STOP-type order (not just "any open order",
+  which misses the asymmetric case) and resubmits a clean OCO pair from
+  protection_state.json (written when the entry was originally submitted) if
+  none is found.
+- Desktop notifications (win11toast) fire on new entries, protection repairs
+  (and repair failures), circuit breaker trips, and connection/credential
+  halts — so these don't require a manual status check to notice.
 - Every decision — scanned, skipped, signaled, submitted, or errored — is
   appended to runner_log.jsonl for after-the-fact auditing.
 
@@ -44,11 +48,30 @@ from datetime import datetime, time as dtime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+from alpaca.trading.requests import GetOrdersRequest
+from alpaca.trading.enums import OrderStatus, QueryOrderStatus
+
+# QueryOrderStatus.OPEN (a server-side filter) silently excludes HELD orders —
+# exactly the status an OCO's second leg sits in while waiting behind its filled
+# sibling. So protection checks query ALL orders and filter client-side against
+# this set of genuinely non-terminal statuses instead.
+LIVE_ORDER_STATUSES = {
+    OrderStatus.NEW, OrderStatus.PARTIALLY_FILLED, OrderStatus.ACCEPTED,
+    OrderStatus.PENDING_NEW, OrderStatus.ACCEPTED_FOR_BIDDING, OrderStatus.CALCULATED,
+    OrderStatus.HELD, OrderStatus.PENDING_REVIEW, OrderStatus.PENDING_REPLACE,
+    OrderStatus.PENDING_CANCEL, OrderStatus.SUSPENDED,
+}
+
 import broker_alpaca
 import strategy
 from data import get_history
 from modules import options_flow
 from universe import SP100
+
+try:
+    from win11toast import toast
+except ImportError:
+    toast = None
 
 HERE = Path(__file__).parent
 KILL_SWITCH_FILE = HERE / "RUNNER_DISABLED"
@@ -68,6 +91,19 @@ def log_event(event: str, **fields):
     print(entry)
 
 
+def notify(title: str, message: str):
+    """Desktop toast for events worth interrupting for (fills, repairs, halts,
+    errors) — not every scan/skip. Silently does nothing if win11toast isn't
+    installed or the OS call fails; a missing notification should never break
+    a run that otherwise succeeded."""
+    if toast is None:
+        return
+    try:
+        toast(title, message, app_id="Quant Trading Desk")
+    except Exception:
+        pass
+
+
 def load_protection_state() -> dict:
     if not PROTECTION_STATE_FILE.exists():
         return {}
@@ -80,30 +116,46 @@ def save_protection_state(state: dict):
         json.dump(state, f, indent=2)
 
 
-def verify_and_repair_protection(client, held_symbols: set, pending_symbols: set, state: dict, dry_run: bool):
-    """Alpaca's bracket/OCO exit legs have twice vanished (expired/canceled) shortly
-    after entry fill, leaving a held position with no live stop-loss or take-profit —
-    happened to FDX and MRK. Rather than relying on a human to notice during a status
-    check, every run now audits each held position for a live protective order and
-    resubmits from the last known stop/target if one is missing."""
+def verify_and_repair_protection(client, held_symbols: set, state: dict, dry_run: bool):
+    """Alpaca's bracket/OCO exit legs have repeatedly vanished (expired/canceled)
+    shortly after entry fill — sometimes both legs, sometimes just the stop while
+    the target survives (CVX, 2026-08-17), which a "does this symbol have any open
+    order" check misses entirely. So this checks specifically for a live STOP-type
+    order per held symbol; anything else (no orders, or only a lone target) counts
+    as unprotected and gets a fresh, clean OCO pair — canceling any orphaned lone
+    leg first so it doesn't collide with the new pair."""
     for symbol in sorted(held_symbols):
-        if symbol in pending_symbols:
-            continue  # has at least one live open order already
+        all_orders = list(client.get_orders(filter=GetOrdersRequest(status=QueryOrderStatus.ALL, symbols=[symbol], limit=20, direction="desc")))
+        live_orders = [o for o in all_orders if o.status in LIVE_ORDER_STATUSES]
+        has_live_stop = any(o.order_type.value == "stop" or o.stop_price is not None for o in live_orders)
+        if has_live_stop:
+            continue
+
         remembered = state.get(symbol)
         if not remembered:
             log_event("protection_missing_no_state", symbol=symbol,
-                       reason="position held with no open orders and no remembered stop/target to repair with")
+                       reason="position held with no live stop and no remembered stop/target to repair with")
+            notify("Quant Desk: UNPROTECTED position", f"{symbol} has no stop-loss and no remembered levels to repair with. Needs manual attention.")
             continue
+
         if dry_run:
             log_event("dry_run_protection_repair", symbol=symbol, **remembered)
             continue
+
+        for orphan in live_orders:
+            try:
+                client.cancel_order_by_id(orphan.id)
+            except Exception:
+                pass
         try:
             order = broker_alpaca.place_oco_exit_order(
                 client, symbol, remembered["qty"], remembered["stop_price"], remembered["target_price"]
             )
             log_event("protection_repaired", symbol=symbol, order_id=str(order.id), **remembered)
+            notify("Quant Desk: protection repaired", f"{symbol} had no live stop-loss — resubmitted stop ${remembered['stop_price']} / target ${remembered['target_price']}.")
         except Exception as e:
             log_event("protection_repair_error", symbol=symbol, error=str(e))
+            notify("Quant Desk: repair FAILED", f"{symbol} is unprotected and the auto-repair attempt errored: {e}")
 
 
 def market_is_open_now() -> bool:
@@ -137,12 +189,14 @@ def main():
     secret_key = broker_alpaca.get_credential_from_env("ALPACA_API_SECRET_KEY")
     if not api_key or not secret_key:
         log_event("halted", reason="ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment")
+        notify("Quant Desk: run HALTED", "No Alpaca credentials found in environment/registry. Positions were not audited this run.")
         return
 
     try:
         client = broker_alpaca.connect(api_key, secret_key)
     except Exception as e:
         log_event("halted", reason=f"could not connect to Alpaca: {e}")
+        notify("Quant Desk: run HALTED", f"Could not connect to Alpaca: {e}. Positions were not audited this run.")
         return
 
     account = client.get_account()
@@ -166,7 +220,7 @@ def main():
     # protection-only pass — protecting an existing position is never gated on
     # whether new entries are currently allowed.
     protection_state = load_protection_state()
-    verify_and_repair_protection(client, held_symbols, pending_symbols, protection_state, args.dry_run)
+    verify_and_repair_protection(client, held_symbols, protection_state, args.dry_run)
     protection_state = {sym: v for sym, v in protection_state.items() if sym in held_symbols}
     save_protection_state(protection_state)
 
@@ -176,6 +230,7 @@ def main():
 
     if daily_pnl_pct <= -DAILY_LOSS_BREAKER_PCT:
         log_event("circuit_breaker_tripped", daily_pnl_pct=round(daily_pnl_pct * 100, 2), threshold_pct=-DAILY_LOSS_BREAKER_PCT * 100)
+        notify("Quant Desk: circuit breaker tripped", f"Equity down {round(daily_pnl_pct * 100, 2)}% today — new entries skipped for the rest of this run.")
         return
 
     if available_slots <= 0:
@@ -227,8 +282,10 @@ def main():
                 log_event("order_submitted", symbol=symbol, qty=qty, stop_price=round(stop_price, 2), target_price=round(target_price, 2), order_id=str(order.id))
                 protection_state[symbol] = {"qty": qty, "stop_price": round(stop_price, 2), "target_price": round(target_price, 2)}
                 save_protection_state(protection_state)
+                notify("Quant Desk: new entry", f"{symbol} x{qty} submitted for next open. Stop ${round(stop_price, 2)} / target ${round(target_price, 2)}.")
             except Exception as e:
                 log_event("order_error", symbol=symbol, error=str(e))
+                notify("Quant Desk: order FAILED", f"{symbol} entry could not be submitted: {e}")
                 continue
         submitted += 1
 
