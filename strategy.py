@@ -28,6 +28,14 @@ MAX_HOLD_DAYS = 20
 STOP_ATR_MULT = 2.0
 TARGET_ATR_MULT = 4.0
 
+# Chandelier-exit trailing stop, as an alternative to the fixed TARGET_ATR_MULT
+# take-profit: trails at TRAILING_STOP_ATR_MULT * ATR below the highest high seen
+# since entry, ratcheting up only. Standard trend-following practice (used by CTAs/
+# managed-futures funds) is to fix the stop-loss by ATR but let the profit exit
+# trail instead of capping it at a fixed reward:risk multiple — asymmetric winners
+# pay for the (still fixed-risk) losers, instead of every trade being symmetric 2:1.
+TRAILING_STOP_ATR_MULT = 3.0
+
 # v1: strict — confirmed new-high breakout, strong volume, established+rising trend, tight overextension guard.
 V1_PARAMS = dict(require_rising_ma=True, volume_mult=1.2, breakout_pct=0.0, rsi_max=70, z_max=2.0)
 

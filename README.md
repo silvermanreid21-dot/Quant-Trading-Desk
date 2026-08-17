@@ -54,6 +54,8 @@ For unattended scheduling, point Windows Task Scheduler at `.venv\Scripts\python
 
 Alpaca's bracket/OCO exit legs have been observed to silently expire/cancel shortly after entry fill, leaving a held position with no live stop-loss or take-profit. `strategy_runner.py` self-heals this on every run (using `protection_state.json`, a local file recording each position's original stop/target — not committed, since it's runtime state). A second scheduled task runs `--protection-only` every 30 minutes during market hours (9:35am-4:00pm ET, weekdays) so a vanished stop doesn't sit unprotected until the next full run.
 
+New entries use a trailing stop instead of a fixed take-profit: a plain market entry, then an Alpaca-native `TRAILING_STOP` sell order (trail distance = 3x ATR, set once at entry) submitted once shares are actually held — backtested to meaningfully outperform the old fixed 2:1 target by letting winners run instead of capping them (`strategy_backtest.py v2-trailing` vs `v2`). Positions opened before 2026-08-17 keep their original fixed OCO stop/target; the protection-check logic handles both kinds side by side.
+
 ## Disclaimer
 
 For research and education only — not investment advice. Paper trading only; no real money moves through any code path in this repository.

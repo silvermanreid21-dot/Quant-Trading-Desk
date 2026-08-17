@@ -19,6 +19,7 @@ from alpaca.trading.requests import (
     MarketOrderRequest,
     StopLossRequest,
     TakeProfitRequest,
+    TrailingStopOrderRequest,
 )
 
 
@@ -153,6 +154,46 @@ def place_bracket_market_order(
         order_class=OrderClass.BRACKET,
         take_profit=TakeProfitRequest(limit_price=round(take_profit_price, 2)),
         stop_loss=StopLossRequest(stop_price=round(stop_loss_price, 2)),
+    )
+    return client.submit_order(order_req)
+
+
+def place_market_entry_order(client: TradingClient, symbol: str, action: str, quantity: int):
+    """Plain market entry with no attached stop/target legs — used by the trailing-
+    stop strategy variant, where the protective order can't be submitted until the
+    entry has actually filled and shares are held (a trailing-stop SELL order needs
+    an existing position to trail)."""
+    if action not in ("BUY", "SELL"):
+        raise ValueError("action must be 'BUY' or 'SELL'")
+    if quantity <= 0:
+        raise ValueError("quantity must be positive")
+
+    order_req = MarketOrderRequest(
+        symbol=symbol.upper(),
+        qty=quantity,
+        side=OrderSide.BUY if action == "BUY" else OrderSide.SELL,
+        time_in_force=TimeInForce.DAY,
+    )
+    return client.submit_order(order_req)
+
+
+def place_trailing_stop_exit_order(client: TradingClient, symbol: str, quantity: int, trail_price: float):
+    """Alpaca-native trailing-stop SELL order: the stop ratchets up automatically as
+    price advances, without us polling/recomputing/resubmitting anything — avoids
+    reintroducing the cancel-and-resubmit churn that caused the vanishing-leg bugs
+    on the fixed OCO pairs. trail_price is a fixed dollar distance for the life of
+    the order (set once, at entry, from that day's ATR) rather than continuously
+    recomputed like the backtest does — a deliberate simplification to keep this
+    live and robust."""
+    if quantity <= 0:
+        raise ValueError("quantity must be positive")
+
+    order_req = TrailingStopOrderRequest(
+        symbol=symbol.upper(),
+        qty=quantity,
+        side=OrderSide.SELL,
+        time_in_force=TimeInForce.GTC,
+        trail_price=round(trail_price, 2),
     )
     return client.submit_order(order_req)
 

@@ -22,6 +22,13 @@ MAX_CONCURRENT_POSITIONS = 5
 DAILY_LOSS_BREAKER_PCT = 0.05
 PERIOD = "5y"
 
+# shares = risk_dollars // (entry_price - stop_price) blows up when an overnight
+# gap-down open lands close to the prior day's computed stop, since the divisor
+# goes near zero — one $2.5M position on a $100k account, found by inspecting an
+# outlier trade. Capping notional as a fraction of equity is a standard
+# single-name concentration limit and closes this off regardless of cause.
+MAX_POSITION_PCT_OF_EQUITY = 0.20
+
 
 def download_universe(tickers: list[str]) -> dict[str, pd.DataFrame]:
     print(f"Downloading {len(tickers)} tickers ({PERIOD})...", file=sys.stderr)
@@ -38,7 +45,7 @@ def download_universe(tickers: list[str]) -> dict[str, pd.DataFrame]:
     return data
 
 
-def run_backtest(price_data: dict[str, pd.DataFrame], params: dict = None) -> dict:
+def run_backtest(price_data: dict[str, pd.DataFrame], params: dict = None, trailing_stop: bool = False) -> dict:
     signals = {t: strategy.compute_signals(df, params) for t, df in price_data.items()}
     signals = {t: s for t, s in signals.items() if not s.empty}
 
@@ -68,16 +75,29 @@ def run_backtest(price_data: dict[str, pd.DataFrame], params: dict = None) -> di
             bar = df.loc[today]
             exit_price, exit_reason = None, None
 
-            hit_stop = bar["Low"] <= pos["stop"]
-            hit_target = bar["High"] >= pos["target"]
-            if hit_stop and hit_target:
-                exit_price, exit_reason = pos["stop"], "stop (conservative same-day tie)"
-            elif hit_stop:
-                exit_price, exit_reason = pos["stop"], "stop"
-            elif hit_target:
-                exit_price, exit_reason = pos["target"], "target"
-            elif (i - pos["entry_idx"]) >= strategy.MAX_HOLD_DAYS:
-                exit_price, exit_reason = bar["Close"], "time_exit"
+            if trailing_stop:
+                pos["highest_high"] = max(pos["highest_high"], float(bar["High"]))
+                atr_today = signals[sym].loc[today, "atr"] if today in signals[sym].index else np.nan
+                if not np.isnan(atr_today):
+                    trail = pos["highest_high"] - strategy.TRAILING_STOP_ATR_MULT * atr_today
+                    pos["stop"] = max(pos["stop"], trail)  # ratchets up only, never loosens
+
+                hit_stop = bar["Low"] <= pos["stop"]
+                if hit_stop:
+                    exit_price, exit_reason = pos["stop"], "trailing_stop"
+                elif (i - pos["entry_idx"]) >= strategy.MAX_HOLD_DAYS:
+                    exit_price, exit_reason = bar["Close"], "time_exit"
+            else:
+                hit_stop = bar["Low"] <= pos["stop"]
+                hit_target = bar["High"] >= pos["target"]
+                if hit_stop and hit_target:
+                    exit_price, exit_reason = pos["stop"], "stop (conservative same-day tie)"
+                elif hit_stop:
+                    exit_price, exit_reason = pos["stop"], "stop"
+                elif hit_target:
+                    exit_price, exit_reason = pos["target"], "target"
+                elif (i - pos["entry_idx"]) >= strategy.MAX_HOLD_DAYS:
+                    exit_price, exit_reason = bar["Close"], "time_exit"
 
             if exit_price is not None:
                 pnl = (exit_price - pos["entry_price"]) * pos["shares"]
@@ -104,11 +124,14 @@ def run_backtest(price_data: dict[str, pd.DataFrame], params: dict = None) -> di
                 continue
             risk_dollars = RISK_PER_TRADE_PCT * equity
             shares = int(risk_dollars // risk_per_share)
+            max_shares_by_notional = int((MAX_POSITION_PCT_OF_EQUITY * equity) // entry_price)
+            shares = min(shares, max_shares_by_notional)
             if shares <= 0:
                 continue
             open_positions[sym] = {
                 "entry_price": entry_price, "stop": stop_price, "target": target_price,
                 "shares": shares, "entry_date": today, "entry_idx": i, "risk_dollars": risk_dollars,
+                "highest_high": max(entry_price, float(df.loc[today, "High"])),
             }
         pending_entries = []
 
@@ -179,10 +202,11 @@ if __name__ == "__main__":
     import sys as _sys
 
     variant = _sys.argv[1] if len(_sys.argv) > 1 else "v1"
-    params = strategy.V2_PARAMS if variant == "v2" else strategy.V1_PARAMS
+    params = strategy.V2_PARAMS if variant.startswith("v2") else strategy.V1_PARAMS
+    trailing_stop = variant.endswith("-trailing")
 
     price_data = download_universe(SP100)
-    results = run_backtest(price_data, params)
+    results = run_backtest(price_data, params, trailing_stop=trailing_stop)
     summary = summarize(results)
 
     print(f"\n=== Strategy {variant} Backtest Summary ({params}) ===")
