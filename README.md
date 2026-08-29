@@ -56,6 +56,8 @@ Alpaca's bracket/OCO exit legs have been observed to silently expire/cancel shor
 
 New entries use a trailing stop instead of a fixed take-profit: a plain market entry, then an Alpaca-native `TRAILING_STOP` sell order (trail distance = 3x ATR, set once at entry) submitted once shares are actually held — backtested to meaningfully outperform the old fixed 2:1 target by letting winners run instead of capping them (`strategy_backtest.py v2-trailing` vs `v2`). Positions opened before 2026-08-17 keep their original fixed OCO stop/target; the protection-check logic handles both kinds side by side.
 
+**Rotation (shadow mode only, not yet live):** when the portfolio is full, the runner compares the strongest unheld signal against the weakest-ranked current holding using a composite strength score (`strategy.rotation_score`) — momentum + trend strength + volume surge. Backtested (`strategy_backtest.py v2-trailing-rotate-composite`) at 406% return vs. 147% without rotation over the same 5y window, but with ~86% of trades being rotation-driven and no out-of-sample validation, so it's log-only for now: `rotation_shadow_signal` events show what it *would* swap, and a desktop notification fires, but nothing is ever sold or bought by this check. Meant to run for real days before deciding whether to wire it to execution.
+
 ## Disclaimer
 
 For research and education only — not investment advice. Paper trading only; no real money moves through any code path in this repository.

@@ -29,6 +29,14 @@ PERIOD = "5y"
 # single-name concentration limit and closes this off regardless of cause.
 MAX_POSITION_PCT_OF_EQUITY = 0.20
 
+# Rotation: if the portfolio is full and a new signal fires that looks stronger than
+# our weakest-ranked holding, exit the weakest holding at today's close and queue the
+# new signal for tomorrow's open instead of waiting for its own stop/target/time exit.
+# Aggressive by design (per explicit request) — no margin required, and any position
+# is eligible including a current winner, not just laggards. Scoring itself
+# (strategy.rotation_score) lives in strategy.py so the backtest and the live
+# runner's rotation-shadow check rank candidates identically.
+
 
 def download_universe(tickers: list[str]) -> dict[str, pd.DataFrame]:
     print(f"Downloading {len(tickers)} tickers ({PERIOD})...", file=sys.stderr)
@@ -45,7 +53,7 @@ def download_universe(tickers: list[str]) -> dict[str, pd.DataFrame]:
     return data
 
 
-def run_backtest(price_data: dict[str, pd.DataFrame], params: dict = None, trailing_stop: bool = False) -> dict:
+def run_backtest(price_data: dict[str, pd.DataFrame], params: dict = None, trailing_stop: bool = False, rotation: str = None) -> dict:
     signals = {t: strategy.compute_signals(df, params) for t, df in price_data.items()}
     signals = {t: s for t, s in signals.items() if not s.empty}
 
@@ -140,8 +148,8 @@ def run_backtest(price_data: dict[str, pd.DataFrame], params: dict = None, trail
         # 3) daily circuit breaker check (based on today's closed P&L)
         breached = closed_pnl_today <= -DAILY_LOSS_BREAKER_PCT * day_start_equity
 
-        # 4) scan for new entries (queued for tomorrow's open) if not breached and slots exist
-        if not breached and len(open_positions) < MAX_CONCURRENT_POSITIONS:
+        # 4) scan for new entries (queued for tomorrow's open) if not breached
+        if not breached:
             room = MAX_CONCURRENT_POSITIONS - len(open_positions)
             candidates = []
             for sym, sig in signals.items():
@@ -152,6 +160,43 @@ def run_backtest(price_data: dict[str, pd.DataFrame], params: dict = None, trail
                     candidates.append((sym, float(row["stop_price"]), float(row["target_price"])))
             for sym, stop_price, target_price in candidates[:room]:
                 pending_entries.append((sym, stop_price, target_price, today))
+
+            # 4b) rotation: portfolio's full (or nearly) and there are still-unplaced
+            # candidates left over — see if any beats our weakest-ranked holding.
+            if rotation and len(candidates) > room:
+                scored_candidates = []
+                for sym, stop_price, target_price in candidates[room:]:
+                    s = strategy.rotation_score(price_data[sym], today, rotation)
+                    if not np.isnan(s):
+                        scored_candidates.append((s, sym, stop_price, target_price))
+                scored_candidates.sort(key=lambda x: x[0], reverse=True)
+
+                scored_held = []
+                for sym, pos in open_positions.items():
+                    if pos["entry_date"] == today:
+                        continue  # give a fresh entry at least one day before it's rotation-eligible
+                    s = strategy.rotation_score(price_data[sym], today, rotation)
+                    if not np.isnan(s):
+                        scored_held.append((s, sym))
+                scored_held.sort(key=lambda x: x[0])  # weakest first
+
+                for (cand_score, csym, cstop, ctarget), (held_score, hsym) in zip(scored_candidates, scored_held):
+                    if cand_score <= held_score:
+                        break  # sorted best-candidate-vs-weakest-holding; no further pair will improve on this
+                    pos = open_positions[hsym]
+                    exit_price = float(price_data[hsym].loc[today, "Close"])
+                    pnl = (exit_price - pos["entry_price"]) * pos["shares"]
+                    r_multiple = pnl / pos["risk_dollars"] if pos["risk_dollars"] else np.nan
+                    cash_realized_pnl += pnl
+                    trade_log.append({
+                        "symbol": hsym, "entry_date": pos["entry_date"], "exit_date": today,
+                        "entry_price": round(pos["entry_price"], 2), "exit_price": round(exit_price, 2),
+                        "shares": pos["shares"], "pnl": round(pnl, 2), "r_multiple": round(r_multiple, 2),
+                        "exit_reason": "rotated_out",
+                    })
+                    del open_positions[hsym]
+                    pending_entries.append((csym, cstop, ctarget, today))
+                equity = INITIAL_CAPITAL + cash_realized_pnl
 
         # 5) mark-to-market equity curve (realized + unrealized at today's close)
         unrealized = 0.0
@@ -202,11 +247,13 @@ if __name__ == "__main__":
     import sys as _sys
 
     variant = _sys.argv[1] if len(_sys.argv) > 1 else "v1"
-    params = strategy.V2_PARAMS if variant.startswith("v2") else strategy.V1_PARAMS
-    trailing_stop = variant.endswith("-trailing")
+    parts = variant.split("-")
+    params = strategy.V2_PARAMS if parts[0] == "v2" else strategy.V1_PARAMS
+    trailing_stop = "trailing" in parts
+    rotation = parts[parts.index("rotate") + 1] if "rotate" in parts else None
 
     price_data = download_universe(SP100)
-    results = run_backtest(price_data, params, trailing_stop=trailing_stop)
+    results = run_backtest(price_data, params, trailing_stop=trailing_stop, rotation=rotation)
     summary = summarize(results)
 
     print(f"\n=== Strategy {variant} Backtest Summary ({params}) ===")

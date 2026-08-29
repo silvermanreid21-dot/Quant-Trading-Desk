@@ -38,9 +38,17 @@ same limits):
   protective order — trailing-stop or legacy OCO pair, per protection_state.json
   — if none is found. qty always comes from the live position, never blindly from
   remembered state, so a stale/wrong quantity can't submit an oversized sell.
+- Rotation shadow check (observation-only, not yet live): when the portfolio is
+  full, compares the strongest unheld signal against the weakest-ranked holding
+  using strategy.rotation_score's composite scoring (validated in
+  strategy_backtest.py's v2-trailing-rotate-composite variant — 406% backtested
+  return vs. 147% without rotation, but with much higher turnover and no
+  out-of-sample validation yet). Logs/notifies what it WOULD swap; never sells or
+  buys anything. Run for real days before deciding whether to wire it to
+  execution.
 - Desktop notifications (win11toast) fire on new entries, protection repairs
-  (and repair failures), circuit breaker trips, and connection/credential
-  halts — so these don't require a manual status check to notice.
+  (and repair failures), circuit breaker trips, connection/credential halts, and
+  rotation-shadow signals — so these don't require a manual status check to notice.
 - Every decision — scanned, skipped, signaled, submitted, or errored — is
   appended to runner_log.jsonl for after-the-fact auditing.
 
@@ -57,6 +65,7 @@ from datetime import datetime, time as dtime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+import numpy as np
 from alpaca.trading.requests import GetOrdersRequest
 from alpaca.trading.enums import OrderStatus, OrderType, QueryOrderStatus
 
@@ -184,6 +193,56 @@ def verify_and_repair_protection(client, positions_df, state: dict, dry_run: boo
             notify("Quant Desk: repair FAILED", f"{symbol} is unprotected and the auto-repair attempt errored: {e}")
 
 
+def check_rotation_shadow(positions_df):
+    """Observation-only: would today's strongest unheld signal outrank our
+    weakest-ranked holding under the composite score validated in
+    strategy_backtest.py (v2-trailing-rotate-composite)? Logs the comparison and
+    notifies, but never cancels/sells/buys anything — this is here to watch real
+    live days accumulate before deciding whether to wire rotation to actual
+    execution. Only meaningful when the portfolio is full, since that's the only
+    time the live runner would otherwise skip a strong signal outright."""
+    held_symbols = set(positions_df["symbol"]) if not positions_df.empty else set()
+    if not held_symbols:
+        return
+
+    scored_held = []
+    for symbol in sorted(held_symbols):
+        try:
+            df = get_history(symbol, period="2y")
+            score = strategy.rotation_score(df, df.index[-1], "composite")
+        except Exception:
+            continue
+        if not np.isnan(score):
+            scored_held.append((score, symbol))
+    if not scored_held:
+        return
+    scored_held.sort(key=lambda x: x[0])  # weakest first
+
+    scored_candidates = []
+    for symbol in SP100:
+        if symbol in held_symbols:
+            continue
+        try:
+            df = get_history(symbol, period="2y")
+            sig = strategy.compute_signals(df, STRATEGY_PARAMS)
+            if sig.empty or not bool(sig.iloc[-1]["entry_signal"]):
+                continue
+            score = strategy.rotation_score(df, df.index[-1], "composite")
+        except Exception:
+            continue
+        if not np.isnan(score):
+            scored_candidates.append((score, symbol))
+    scored_candidates.sort(key=lambda x: x[0], reverse=True)
+
+    for (cand_score, csym), (held_score, hsym) in zip(scored_candidates, scored_held):
+        if cand_score <= held_score:
+            break  # sorted best-candidate-vs-weakest-holding; no further pair will improve on this
+        log_event("rotation_shadow_signal", would_sell=hsym, held_score=round(held_score, 2),
+                   would_buy=csym, candidate_score=round(cand_score, 2))
+        notify("Quant Desk: rotation signal (shadow — no action taken)",
+               f"Would swap {hsym} (score {held_score:.1f}) for {csym} (score {cand_score:.1f}). Shadow mode: nothing executed.")
+
+
 def market_is_open_now() -> bool:
     now_et = datetime.now(ZoneInfo("America/New_York"))
     if now_et.weekday() >= 5:
@@ -260,6 +319,7 @@ def main():
         return
 
     if available_slots <= 0:
+        check_rotation_shadow(positions_df)
         log_event("run_end", reason="no available position slots")
         return
 

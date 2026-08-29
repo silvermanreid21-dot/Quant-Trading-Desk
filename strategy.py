@@ -43,6 +43,37 @@ V1_PARAMS = dict(require_rising_ma=True, volume_mult=1.2, breakout_pct=0.0, rsi_
 # both MAs actively rising, and more room before something counts as "overextended".
 V2_PARAMS = dict(require_rising_ma=False, volume_mult=1.0, breakout_pct=0.02, rsi_max=75, z_max=2.5)
 
+# Rotation scoring (see strategy_backtest.py's "rotate" variants and the live
+# runner's rotation-shadow check): ranks how strong a name's current setup is, so
+# the weakest-ranked holding can be compared against the strongest unheld candidate.
+# Backtested composite scoring outperformed plain momentum with similar drawdown
+# to the no-rotation baseline — see ROTATION_LOOKBACK_DAYS-day backtest comparison.
+ROTATION_LOOKBACK_DAYS = 20
+
+
+def _momentum_score(df: pd.DataFrame, today, lookback: int = ROTATION_LOOKBACK_DAYS) -> float:
+    idx = df.index.get_loc(today)
+    if idx < lookback:
+        return np.nan
+    return (df["Close"].iloc[idx] / df["Close"].iloc[idx - lookback] - 1) * 100
+
+
+def _composite_score(df: pd.DataFrame, today, lookback: int = ROTATION_LOOKBACK_DAYS) -> float:
+    idx = df.index.get_loc(today)
+    if idx < 50:
+        return np.nan
+    close = df["Close"]
+    mom = (close.iloc[idx] / close.iloc[idx - lookback] - 1) * 100
+    vol_avg20 = df["Volume"].iloc[idx - 20:idx].mean()
+    vol_ratio = df["Volume"].iloc[idx] / vol_avg20 if vol_avg20 else np.nan
+    ma50 = close.iloc[idx - 50:idx].mean()
+    trend_strength = (close.iloc[idx] / ma50 - 1) * 100 if ma50 else np.nan
+    return mom + trend_strength + (vol_ratio - 1) * 20
+
+
+def rotation_score(df: pd.DataFrame, today, mode: str) -> float:
+    return _momentum_score(df, today) if mode == "momentum" else _composite_score(df, today)
+
 
 def compute_signals(df: pd.DataFrame, params: dict = None) -> pd.DataFrame:
     """Returns df's index aligned frame with signal columns. Every column is causal
