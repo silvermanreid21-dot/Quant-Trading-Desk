@@ -1,0 +1,27 @@
+{
+  "FDX": {
+    "qty": 132,
+    "stop_price": 307.38,
+    "target_price": 352.52
+  },
+  "MRK": {
+    "qty": 295,
+    "trailing": true,
+    "trail_price": 11.99
+  },
+  "CVX": {
+    "qty": 230,
+    "stop_price": 191.22,
+    "target_price": 217.57
+  },
+  "BMY": {
+    "qty": 316,
+    "trailing": true,
+    "trail_price": 5.2
+  },
+  "KO": {
+    "qty": 236,
+    "trailing": true,
+    "trail_price": 4.89
+  }
+}

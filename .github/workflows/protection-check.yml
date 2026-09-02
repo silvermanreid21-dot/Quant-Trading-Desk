@@ -1,0 +1,62 @@
+name: Quant Desk - Protection Check
+
+# Intraday companion to main-run.yml: audits held positions for a missing
+# stop/target every 30 minutes during market hours, same reasoning as that
+# workflow for why this needs to run in the cloud rather than depend on a laptop
+# being on. Fires more often than needed across both DST UTC offsets combined;
+# the gate step below cheaply skips any firing outside real US/Eastern market
+# hours instead of maintaining two separate cron schedules across DST changes.
+on:
+  schedule:
+    - cron: "5,35 13-20 * * 1-5"  # superset covering 9:35am-4:00pm ET in both EDT and EST
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: quant-desk-protection-check
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Gate on actual US/Eastern market hours (handles DST)
+        id: gate
+        run: |
+          hm=$(TZ="America/New_York" date +%H%M)
+          echo "Current US/Eastern time: $hm"
+          if [ "$hm" -ge "0930" ] && [ "$hm" -le "1600" ]; then
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/setup-python@v5
+        if: steps.gate.outputs.skip == 'false'
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        if: steps.gate.outputs.skip == 'false'
+        run: pip install -r requirements-ci.txt
+
+      - name: Run protection-only check
+        if: steps.gate.outputs.skip == 'false'
+        env:
+          ALPACA_API_KEY_ID: ${{ secrets.ALPACA_API_KEY_ID }}
+          ALPACA_API_SECRET_KEY: ${{ secrets.ALPACA_API_SECRET_KEY }}
+        run: python strategy_runner.py --protection-only
+
+      - name: Commit updated state and log
+        if: steps.gate.outputs.skip == 'false'
+        run: |
+          git config user.name "quant-desk-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add runner_log.jsonl protection_state.json
+          git diff --cached --quiet || git commit -m "Protection check: automated state update [skip ci]"
+          git pull --rebase --autostash
+          git push

@@ -2,7 +2,11 @@
 __pycache__/
 *.pyc
 
-# Local runtime state — not code
-runner_log.jsonl
+# Kill switch: local-only when run from a laptop. When scheduled runs happen via
+# GitHub Actions (see .github/workflows/), disable the workflow itself instead —
+# a local file here has no effect on the cloud runner.
 RUNNER_DISABLED
-protection_state.json
+
+# runner_log.jsonl and protection_state.json are tracked (not ignored): GitHub
+# Actions runners are ephemeral, so this state has to persist via git commits
+# between runs instead of living only on a local disk.

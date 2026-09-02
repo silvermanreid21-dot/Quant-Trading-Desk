@@ -1,0 +1,412 @@
+{"timestamp": "2026-08-10T21:57:45", "event": "halted", "reason": "ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment"}
+{"timestamp": "2026-08-10T21:57:48", "event": "halted", "reason": "kill switch present (RUNNER_DISABLED)"}
+{"timestamp": "2026-08-10T21:57:51", "event": "halted", "reason": "ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment"}
+{"timestamp": "2026-08-10T22:05:12", "event": "halted", "reason": "ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment"}
+{"timestamp": "2026-08-11T08:58:20", "event": "halted", "reason": "ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment"}
+{"timestamp": "2026-08-11T08:58:45", "event": "run_start", "dry_run": true, "equity": 100000.0, "daily_pnl_pct": 0.0}
+{"timestamp": "2026-08-11T08:58:45", "event": "portfolio_state", "held": [], "pending": [], "available_slots": 5}
+{"timestamp": "2026-08-11T08:58:52", "event": "dry_run_signal", "symbol": "COP", "qty": 281, "stop_price": 115.93, "target_price": 137.23}
+{"timestamp": "2026-08-11T08:58:52", "event": "dry_run_signal", "symbol": "CSCO", "qty": 255, "stop_price": 114.74, "target_price": 138.23}
+{"timestamp": "2026-08-11T08:58:53", "event": "dry_run_signal", "symbol": "CVX", "qty": 214, "stop_price": 185.58, "target_price": 213.56}
+{"timestamp": "2026-08-11T08:58:54", "event": "dry_run_signal", "symbol": "FDX", "qty": 133, "stop_price": 310.04, "target_price": 355.15}
+{"timestamp": "2026-08-11T08:58:59", "event": "dry_run_signal", "symbol": "JNJ", "qty": 168, "stop_price": 249.91, "target_price": 285.62}
+{"timestamp": "2026-08-11T08:58:59", "event": "run_end", "submitted": 5}
+{"timestamp": "2026-08-11T19:06:46", "event": "run_start", "dry_run": false, "equity": 100000.0, "daily_pnl_pct": 0.0}
+{"timestamp": "2026-08-11T19:06:46", "event": "portfolio_state", "held": [], "pending": [], "available_slots": 5}
+{"timestamp": "2026-08-11T19:07:12", "event": "order_submitted", "symbol": "FDX", "qty": 132, "stop_price": 307.38, "target_price": 352.52, "order_id": "3efaf16a-b91c-468d-b4df-6586fbf0b225"}
+{"timestamp": "2026-08-11T19:07:36", "event": "run_end", "submitted": 1}
+{"timestamp": "2026-08-12T11:17:48", "event": "halted", "reason": "could not connect to Alpaca: {\"message\": \"unauthorized.\"}\n"}
+{"timestamp": "2026-08-12T20:32:01", "event": "run_start", "dry_run": false, "equity": 100398.06, "daily_pnl_pct": 0.4}
+{"timestamp": "2026-08-12T20:32:02", "event": "portfolio_state", "held": ["FDX"], "pending": ["FDX"], "available_slots": 4}
+{"timestamp": "2026-08-12T20:32:10", "event": "order_submitted", "symbol": "CSCO", "qty": 259, "stop_price": 116.15, "target_price": 139.34, "order_id": "f43fe88d-dbd7-485c-918c-392048f92b2b"}
+{"timestamp": "2026-08-12T20:32:22", "event": "order_submitted", "symbol": "MRK", "qty": 295, "stop_price": 126.13, "target_price": 146.51, "order_id": "b8d774f3-0ed1-4fc4-8d4e-92775fd2df5d"}
+{"timestamp": "2026-08-12T20:32:32", "event": "run_end", "submitted": 2}
+{"timestamp": "2026-08-12T20:34:47", "event": "run_start", "dry_run": false, "equity": 100398.06, "daily_pnl_pct": 0.4}
+{"timestamp": "2026-08-12T20:34:47", "event": "portfolio_state", "held": ["FDX"], "pending": ["CSCO", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-12T20:35:27", "event": "run_end", "submitted": 0}
+{"timestamp": "2026-08-13T10:06:16", "event": "run_start", "dry_run": true, "equity": 100237.84, "daily_pnl_pct": -0.13}
+{"timestamp": "2026-08-13T10:06:17", "event": "portfolio_state", "held": ["FDX", "MRK"], "pending": ["FDX", "MRK"], "available_slots": 3}
+{"timestamp": "2026-08-13T10:06:47", "event": "run_end", "submitted": 0}
+{"timestamp": "2026-08-13T17:30:03", "event": "run_start", "dry_run": false, "equity": 101790.6, "daily_pnl_pct": 1.42}
+{"timestamp": "2026-08-13T17:30:03", "event": "portfolio_state", "held": ["FDX", "MRK"], "pending": ["FDX"], "available_slots": 3}
+{"timestamp": "2026-08-13T17:30:30", "event": "run_end", "submitted": 0}
+{"timestamp": "2026-08-14T09:14:51", "event": "run_start", "dry_run": true, "equity": 101891.63, "daily_pnl_pct": -0.14}
+{"timestamp": "2026-08-14T09:14:51", "event": "portfolio_state", "held": ["FDX", "MRK"], "pending": ["FDX", "MRK"], "available_slots": 3}
+{"timestamp": "2026-08-14T09:14:56", "event": "signal_skipped", "symbol": "AMGN", "reason": "options flow gate: put/call volume ratio 1.89 > 1.5 (heavy put buying)"}
+{"timestamp": "2026-08-14T09:15:24", "event": "dry_run_signal", "symbol": "V", "qty": 137, "stop_price": 350.67, "target_price": 395.01}
+{"timestamp": "2026-08-14T09:15:26", "event": "run_end", "submitted": 1}
+{"timestamp": "2026-08-14T16:31:32", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 100685.6, "daily_pnl_pct": -1.32}
+{"timestamp": "2026-08-14T16:31:32", "event": "portfolio_state", "held": ["FDX", "MRK"], "pending": ["FDX", "MRK"], "available_slots": 3}
+{"timestamp": "2026-08-14T16:31:32", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-14T16:33:45", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 100685.6, "daily_pnl_pct": -1.32}
+{"timestamp": "2026-08-14T16:33:45", "event": "portfolio_state", "held": ["FDX", "MRK"], "pending": ["FDX", "MRK"], "available_slots": 3}
+{"timestamp": "2026-08-14T16:33:45", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-14T18:07:44", "event": "run_start", "dry_run": false, "protection_only": false, "equity": 101364.01, "daily_pnl_pct": -0.66}
+{"timestamp": "2026-08-14T18:07:44", "event": "portfolio_state", "held": ["FDX", "MRK"], "pending": ["FDX", "MRK"], "available_slots": 3}
+{"timestamp": "2026-08-14T18:07:54", "event": "order_submitted", "symbol": "CVX", "qty": 230, "stop_price": 191.22, "target_price": 217.57, "order_id": "b22b2334-3619-494f-baa8-6e7c717c1782"}
+{"timestamp": "2026-08-14T18:08:35", "event": "run_end", "submitted": 1}
+{"timestamp": "2026-08-17T09:35:06", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 101354.52, "daily_pnl_pct": -0.14}
+{"timestamp": "2026-08-17T09:35:06", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-17T09:35:06", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-17T10:05:04", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 102266.26, "daily_pnl_pct": 0.76}
+{"timestamp": "2026-08-17T10:05:04", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-17T10:05:04", "event": "protection_repair_error", "symbol": "CVX", "error": "{\"available\":\"0\",\"code\":40310000,\"existing_qty\":\"230\",\"held_for_orders\":\"230\",\"message\":\"insufficient qty available for order (requested: 230, available: 0)\",\"related_orders\":[\"d12c3d4a-094d-41e3-9465-242a0a3ef27e\"],\"symbol\":\"CVX\"}"}
+{"timestamp": "2026-08-17T10:05:11", "event": "protection_repaired", "symbol": "FDX", "order_id": "902a992e-6d41-4f03-9bbc-c6b89c909f03", "qty": 132, "stop_price": 307.38, "target_price": 352.52}
+{"timestamp": "2026-08-17T10:05:18", "event": "protection_repaired", "symbol": "MRK", "order_id": "82ea0acd-a515-4ae6-81f1-4ae9e446f80f", "qty": 295, "stop_price": 126.13, "target_price": 146.51}
+{"timestamp": "2026-08-17T10:05:25", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-17T10:16:43", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 102086.07, "daily_pnl_pct": 0.58}
+{"timestamp": "2026-08-17T10:16:43", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-17T10:16:43", "event": "protection_repaired", "symbol": "CVX", "order_id": "f6f627f1-decb-4b28-a840-5b4e7cb88d83", "qty": 230, "stop_price": 191.22, "target_price": 217.57}
+{"timestamp": "2026-08-17T10:16:50", "event": "protection_repaired", "symbol": "FDX", "order_id": "d98167df-5691-4e3f-9783-05a39f96b9f5", "qty": 132, "stop_price": 307.38, "target_price": 352.52}
+{"timestamp": "2026-08-17T10:16:57", "event": "protection_repaired", "symbol": "MRK", "order_id": "fa47a275-b945-4e4d-a0ba-494ab2687baa", "qty": 295, "stop_price": 126.13, "target_price": 146.51}
+{"timestamp": "2026-08-17T10:17:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-17T10:35:03", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 102042.94, "daily_pnl_pct": 0.54}
+{"timestamp": "2026-08-17T10:35:04", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-17T10:35:04", "event": "protection_repaired", "symbol": "CVX", "order_id": "3c3558b5-e4d1-4840-a159-a90ffd65fd0c", "qty": 230, "stop_price": 191.22, "target_price": 217.57}
+{"timestamp": "2026-08-17T10:35:10", "event": "protection_repaired", "symbol": "FDX", "order_id": "a28f2842-59b9-4add-b79a-3ce58afb184b", "qty": 132, "stop_price": 307.38, "target_price": 352.52}
+{"timestamp": "2026-08-17T10:35:17", "event": "protection_repair_error", "symbol": "MRK", "error": "{\"available\":\"0\",\"code\":40310000,\"existing_qty\":\"295\",\"held_for_orders\":\"295\",\"message\":\"insufficient qty available for order (requested: 295, available: 0)\",\"related_orders\":[\"fa47a275-b945-4e4d-a0ba-494ab2687baa\"],\"symbol\":\"MRK\"}"}
+{"timestamp": "2026-08-17T10:35:25", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-17T10:46:12", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 102021.06, "daily_pnl_pct": 0.52}
+{"timestamp": "2026-08-17T10:46:12", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX"], "available_slots": 2}
+{"timestamp": "2026-08-17T10:46:12", "event": "protection_repaired", "symbol": "MRK", "order_id": "fc1edc7d-b8dc-48d3-bf04-87c1075fed0d", "qty": 295, "stop_price": 126.13, "target_price": 146.51}
+{"timestamp": "2026-08-17T10:46:19", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-17T10:47:22", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 101938.53, "daily_pnl_pct": 0.44}
+{"timestamp": "2026-08-17T10:47:22", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-17T10:47:23", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-17T11:05:03", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 101589.36, "daily_pnl_pct": 0.09}
+{"timestamp": "2026-08-17T11:05:03", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-17T11:05:03", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-17T11:35:25", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 101690.7, "daily_pnl_pct": 0.19}
+{"timestamp": "2026-08-17T11:35:33", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-17T13:35:06", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 102120.13, "daily_pnl_pct": 0.61}
+{"timestamp": "2026-08-17T13:35:06", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-17T13:35:06", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-17T14:05:05", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 102112.03, "daily_pnl_pct": 0.61}
+{"timestamp": "2026-08-17T14:05:05", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-17T14:05:05", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-17T14:35:04", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 101903.06, "daily_pnl_pct": 0.4}
+{"timestamp": "2026-08-17T14:35:05", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-17T14:35:05", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-17T15:05:05", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 101898.0, "daily_pnl_pct": 0.4}
+{"timestamp": "2026-08-17T15:05:05", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-17T15:05:05", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-17T15:35:05", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 101664.11, "daily_pnl_pct": 0.16}
+{"timestamp": "2026-08-17T15:35:05", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-17T15:35:05", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-17T16:11:43", "event": "run_start", "dry_run": true, "protection_only": false, "equity": 101634.29, "daily_pnl_pct": 0.14}
+{"timestamp": "2026-08-17T16:11:43", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-17T16:12:25", "event": "run_end", "submitted": 0}
+{"timestamp": "2026-08-17T16:19:11", "event": "run_start", "dry_run": true, "protection_only": false, "equity": 101910.29, "daily_pnl_pct": 0.41}
+{"timestamp": "2026-08-17T16:19:11", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-17T16:19:51", "event": "run_end", "submitted": 0}
+{"timestamp": "2026-08-17T16:20:03", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 101910.29, "daily_pnl_pct": 0.41}
+{"timestamp": "2026-08-17T16:20:03", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-17T16:20:03", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-17T16:22:00", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 101779.37, "daily_pnl_pct": 0.28}
+{"timestamp": "2026-08-17T16:22:00", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-17T16:22:01", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-18T09:10:26", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 102388.27, "daily_pnl_pct": 0.76}
+{"timestamp": "2026-08-18T09:10:26", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-18T09:10:26", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-18T09:35:03", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 102717.31, "daily_pnl_pct": 1.08}
+{"timestamp": "2026-08-18T09:35:03", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-18T09:35:03", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-18T10:05:08", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 102520.62, "daily_pnl_pct": 0.89}
+{"timestamp": "2026-08-18T10:05:09", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-18T10:05:09", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-18T10:35:03", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 102589.36, "daily_pnl_pct": 0.95}
+{"timestamp": "2026-08-18T10:35:04", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-18T10:35:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-18T11:05:03", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 102310.36, "daily_pnl_pct": 0.68}
+{"timestamp": "2026-08-18T11:05:03", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-18T11:05:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-18T11:35:03", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 102132.36, "daily_pnl_pct": 0.5}
+{"timestamp": "2026-08-18T11:35:03", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-18T11:35:03", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-18T12:05:03", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 101824.32, "daily_pnl_pct": 0.2}
+{"timestamp": "2026-08-18T12:05:03", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-18T12:05:03", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-18T12:35:03", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 101727.12, "daily_pnl_pct": 0.11}
+{"timestamp": "2026-08-18T12:35:03", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-18T12:35:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-18T13:05:03", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 101685.73, "daily_pnl_pct": 0.07}
+{"timestamp": "2026-08-18T13:05:03", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-18T13:05:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-18T13:35:03", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 101778.67, "daily_pnl_pct": 0.16}
+{"timestamp": "2026-08-18T13:35:03", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-18T13:35:03", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-18T14:05:03", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 101775.36, "daily_pnl_pct": 0.15}
+{"timestamp": "2026-08-18T14:05:03", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-18T14:05:03", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-18T14:35:03", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 101950.22, "daily_pnl_pct": 0.33}
+{"timestamp": "2026-08-18T14:35:03", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-18T14:35:03", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-18T15:05:03", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 101803.65, "daily_pnl_pct": 0.18}
+{"timestamp": "2026-08-18T15:05:03", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-18T15:05:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-18T15:35:03", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 101845.66, "daily_pnl_pct": 0.22}
+{"timestamp": "2026-08-18T15:35:03", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-18T15:35:03", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-18T17:30:03", "event": "run_start", "dry_run": false, "protection_only": false, "equity": 101649.37, "daily_pnl_pct": 0.03}
+{"timestamp": "2026-08-18T17:30:03", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-18T17:30:14", "event": "signal_skipped", "symbol": "GE", "reason": "options flow gate: put/call volume ratio 1.65 > 1.5 (heavy put buying)"}
+{"timestamp": "2026-08-18T17:30:22", "event": "signal_skipped", "symbol": "MA", "reason": "options flow gate: put/call volume ratio 1.79 > 1.5 (heavy put buying)"}
+{"timestamp": "2026-08-18T17:30:35", "event": "signal_skipped", "symbol": "XOM", "reason": "options flow gate: put skew 16.4% > 5% (downside protection demand)"}
+{"timestamp": "2026-08-18T17:30:35", "event": "run_end", "submitted": 0}
+{"timestamp": "2026-08-19T09:31:35", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 104864.35, "daily_pnl_pct": 3.14}
+{"timestamp": "2026-08-19T09:31:35", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-19T09:31:35", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-19T09:35:05", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 105507.4, "daily_pnl_pct": 3.77}
+{"timestamp": "2026-08-19T09:35:05", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-19T09:35:05", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-19T10:05:06", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 107281.66, "daily_pnl_pct": 5.52}
+{"timestamp": "2026-08-19T10:05:06", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-19T10:05:06", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-19T10:35:07", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 107143.0, "daily_pnl_pct": 5.38}
+{"timestamp": "2026-08-19T10:35:07", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-19T10:35:07", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-19T11:05:03", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 107098.69, "daily_pnl_pct": 5.34}
+{"timestamp": "2026-08-19T11:05:03", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-19T11:05:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-19T11:35:03", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 107013.91, "daily_pnl_pct": 5.25}
+{"timestamp": "2026-08-19T11:35:03", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-19T11:35:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-19T12:05:03", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 106850.09, "daily_pnl_pct": 5.09}
+{"timestamp": "2026-08-19T12:05:03", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-19T12:05:03", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-19T12:35:06", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 106833.07, "daily_pnl_pct": 5.08}
+{"timestamp": "2026-08-19T12:35:06", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-19T12:35:06", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-19T13:05:05", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 106744.42, "daily_pnl_pct": 4.99}
+{"timestamp": "2026-08-19T13:05:05", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-19T13:05:05", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-19T13:35:05", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 106760.34, "daily_pnl_pct": 5.0}
+{"timestamp": "2026-08-19T13:35:05", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-19T13:35:05", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-19T14:05:05", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 106930.14, "daily_pnl_pct": 5.17}
+{"timestamp": "2026-08-19T14:05:05", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-19T14:05:05", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-19T15:05:07", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 107080.09, "daily_pnl_pct": 5.32}
+{"timestamp": "2026-08-19T15:05:07", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-19T15:05:07", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-19T20:10:26", "event": "run_start", "dry_run": false, "protection_only": false, "equity": 106965.36, "daily_pnl_pct": 5.21}
+{"timestamp": "2026-08-19T20:10:26", "event": "portfolio_state", "held": ["CVX", "FDX", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 2}
+{"timestamp": "2026-08-19T20:10:33", "event": "order_submitted", "symbol": "BMY", "qty": 316, "trail_price": 5.2, "order_id": "1bb5d26d-b9f8-4a6d-9920-b861ca4ff19a"}
+{"timestamp": "2026-08-19T20:10:41", "event": "signal_skipped", "symbol": "COP", "reason": "options flow gate: put skew 5.5% > 5% (downside protection demand)"}
+{"timestamp": "2026-08-19T20:10:50", "event": "order_submitted", "symbol": "KO", "qty": 236, "trail_price": 4.89, "order_id": "7e2b1999-ef5a-4449-a77e-3bc0fc73605c"}
+{"timestamp": "2026-08-19T20:10:53", "event": "run_end", "submitted": 2}
+{"timestamp": "2026-08-20T10:05:08", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 106534.16, "daily_pnl_pct": -0.16}
+{"timestamp": "2026-08-20T10:05:08", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["CVX", "FDX", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-20T10:05:08", "event": "protection_repaired", "symbol": "BMY", "order_id": "d28ee1bc-8999-4f3d-9604-a67d957fdaa5", "qty": 316, "trail_price": 5.2}
+{"timestamp": "2026-08-20T10:05:15", "event": "protection_repaired", "symbol": "KO", "order_id": "5ff62131-1df0-4808-b50f-96b37d796113", "qty": 236, "trail_price": 4.89}
+{"timestamp": "2026-08-20T10:05:45", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-20T10:35:05", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 106580.36, "daily_pnl_pct": -0.11}
+{"timestamp": "2026-08-20T10:35:05", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-20T10:35:06", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-20T11:05:05", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 106965.58, "daily_pnl_pct": 0.25}
+{"timestamp": "2026-08-20T11:05:05", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-20T11:05:05", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-20T11:35:05", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 107676.41, "daily_pnl_pct": 0.91}
+{"timestamp": "2026-08-20T11:35:05", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-20T11:35:05", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-20T12:05:05", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 107539.49, "daily_pnl_pct": 0.79}
+{"timestamp": "2026-08-20T12:05:05", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-20T12:05:06", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-20T12:35:04", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 107001.78, "daily_pnl_pct": 0.28}
+{"timestamp": "2026-08-20T12:35:04", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-20T12:35:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-20T13:05:06", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 107190.66, "daily_pnl_pct": 0.46}
+{"timestamp": "2026-08-20T13:05:07", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-20T13:05:07", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-20T14:05:07", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 106797.54, "daily_pnl_pct": 0.09}
+{"timestamp": "2026-08-20T14:05:08", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-20T14:05:08", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-20T14:35:04", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 106626.64, "daily_pnl_pct": -0.07}
+{"timestamp": "2026-08-20T14:35:04", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-20T14:35:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-20T15:05:04", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 106255.86, "daily_pnl_pct": -0.42}
+{"timestamp": "2026-08-20T15:05:04", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-20T15:05:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-20T15:36:02", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 105629.2, "daily_pnl_pct": -1.0}
+{"timestamp": "2026-08-20T15:36:05", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-20T15:36:05", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-20T17:30:05", "event": "run_start", "dry_run": false, "protection_only": false, "equity": 104898.73, "daily_pnl_pct": -1.69}
+{"timestamp": "2026-08-20T17:30:05", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-20T17:30:06", "event": "run_end", "reason": "no available position slots"}
+{"timestamp": "2026-08-21T17:30:05", "event": "run_start", "dry_run": false, "protection_only": false, "equity": 106504.85, "daily_pnl_pct": 1.45}
+{"timestamp": "2026-08-21T17:30:05", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-21T17:30:05", "event": "run_end", "reason": "no available position slots"}
+{"timestamp": "2026-08-24T09:35:06", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 105517.24, "daily_pnl_pct": -0.85}
+{"timestamp": "2026-08-24T09:35:06", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-24T09:35:07", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-24T10:05:04", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 106251.66, "daily_pnl_pct": -0.16}
+{"timestamp": "2026-08-24T10:05:04", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-24T10:05:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-24T10:35:04", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 105858.07, "daily_pnl_pct": -0.53}
+{"timestamp": "2026-08-24T10:35:04", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-24T10:35:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-24T11:05:04", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 105880.57, "daily_pnl_pct": -0.51}
+{"timestamp": "2026-08-24T11:05:04", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-24T11:05:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-24T11:35:04", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 105810.99, "daily_pnl_pct": -0.58}
+{"timestamp": "2026-08-24T11:35:04", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-24T11:35:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-24T12:05:04", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 106220.83, "daily_pnl_pct": -0.19}
+{"timestamp": "2026-08-24T12:05:04", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-24T12:05:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-24T12:35:04", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 106056.37, "daily_pnl_pct": -0.34}
+{"timestamp": "2026-08-24T12:35:04", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-24T12:35:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-24T13:05:04", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 106070.1, "daily_pnl_pct": -0.33}
+{"timestamp": "2026-08-24T13:05:04", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-24T13:05:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-24T13:35:04", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 106038.25, "daily_pnl_pct": -0.36}
+{"timestamp": "2026-08-24T13:35:04", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-24T13:35:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-24T14:05:04", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 105973.04, "daily_pnl_pct": -0.42}
+{"timestamp": "2026-08-24T14:05:04", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-24T14:05:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-24T14:35:04", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 106194.42, "daily_pnl_pct": -0.22}
+{"timestamp": "2026-08-24T14:35:04", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-24T14:35:05", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-24T15:05:04", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 106499.68, "daily_pnl_pct": 0.07}
+{"timestamp": "2026-08-24T15:05:04", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-24T15:05:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-24T15:35:03", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 106452.68, "daily_pnl_pct": 0.03}
+{"timestamp": "2026-08-24T15:35:03", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-24T15:35:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-24T17:30:04", "event": "run_start", "dry_run": false, "protection_only": false, "equity": 106939.43, "daily_pnl_pct": 0.48}
+{"timestamp": "2026-08-24T17:30:04", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-24T17:30:04", "event": "run_end", "reason": "no available position slots"}
+{"timestamp": "2026-08-25T09:35:08", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 107169.1, "daily_pnl_pct": 0.3}
+{"timestamp": "2026-08-25T09:35:08", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-25T09:35:08", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-25T10:05:04", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 107546.52, "daily_pnl_pct": 0.66}
+{"timestamp": "2026-08-25T10:05:04", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-25T10:05:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-25T10:35:04", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 107338.02, "daily_pnl_pct": 0.46}
+{"timestamp": "2026-08-25T10:35:04", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-25T10:35:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-25T11:05:04", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 107387.12, "daily_pnl_pct": 0.51}
+{"timestamp": "2026-08-25T11:05:04", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-25T11:05:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-25T11:35:04", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 107419.61, "daily_pnl_pct": 0.54}
+{"timestamp": "2026-08-25T11:35:04", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-25T11:35:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-25T12:05:04", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 107084.58, "daily_pnl_pct": 0.23}
+{"timestamp": "2026-08-25T12:05:04", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-25T12:05:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-25T12:35:04", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 107238.43, "daily_pnl_pct": 0.37}
+{"timestamp": "2026-08-25T12:35:04", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-25T12:35:05", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-25T13:05:04", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 107221.07, "daily_pnl_pct": 0.35}
+{"timestamp": "2026-08-25T13:05:04", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-25T13:05:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-25T13:35:04", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 107092.9, "daily_pnl_pct": 0.23}
+{"timestamp": "2026-08-25T13:35:04", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-25T13:35:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-25T14:05:04", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 107590.23, "daily_pnl_pct": 0.7}
+{"timestamp": "2026-08-25T14:05:04", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-25T14:05:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-25T14:35:41", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 107635.19, "daily_pnl_pct": 0.74}
+{"timestamp": "2026-08-25T14:35:41", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-25T14:35:41", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-25T15:35:06", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 108072.57, "daily_pnl_pct": 1.15}
+{"timestamp": "2026-08-25T15:35:06", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-25T15:35:06", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-25T17:30:06", "event": "run_start", "dry_run": false, "protection_only": false, "equity": 108173.11, "daily_pnl_pct": 1.24}
+{"timestamp": "2026-08-25T17:30:06", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-25T17:30:06", "event": "run_end", "reason": "no available position slots"}
+{"timestamp": "2026-08-28T13:29:07", "event": "run_start", "dry_run": true, "protection_only": false, "equity": 104200.06, "daily_pnl_pct": -0.39}
+{"timestamp": "2026-08-28T13:29:07", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-28T13:29:36", "event": "run_end", "reason": "no available position slots"}
+{"timestamp": "2026-08-28T17:30:03", "event": "run_start", "dry_run": false, "protection_only": false, "equity": 104737.28, "daily_pnl_pct": 0.13}
+{"timestamp": "2026-08-28T17:30:03", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-28T17:30:31", "event": "rotation_shadow_signal", "would_sell": "BMY", "held_score": 0.6, "would_buy": "MSFT", "candidate_score": 30.15}
+{"timestamp": "2026-08-28T17:30:38", "event": "rotation_shadow_signal", "would_sell": "KO", "held_score": 1.63, "would_buy": "BLK", "candidate_score": 19.95}
+{"timestamp": "2026-08-28T17:30:45", "event": "rotation_shadow_signal", "would_sell": "FDX", "held_score": 4.5, "would_buy": "BNY", "candidate_score": 9.08}
+{"timestamp": "2026-08-28T17:30:52", "event": "run_end", "reason": "no available position slots"}
+{"timestamp": "2026-08-31T09:35:06", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 104400.07, "daily_pnl_pct": -0.28}
+{"timestamp": "2026-08-31T09:35:07", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-31T09:35:07", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-31T10:05:03", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 104912.59, "daily_pnl_pct": 0.21}
+{"timestamp": "2026-08-31T10:05:03", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-31T10:05:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-31T10:35:03", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 104605.15, "daily_pnl_pct": -0.08}
+{"timestamp": "2026-08-31T10:35:03", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-31T10:35:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-31T11:05:04", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 104833.56, "daily_pnl_pct": 0.14}
+{"timestamp": "2026-08-31T11:05:05", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-31T11:05:05", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-31T11:35:03", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 104961.28, "daily_pnl_pct": 0.26}
+{"timestamp": "2026-08-31T11:35:03", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-31T11:35:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-31T12:05:03", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 104680.46, "daily_pnl_pct": -0.01}
+{"timestamp": "2026-08-31T12:05:03", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-31T12:05:03", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-31T13:05:10", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 104438.5, "daily_pnl_pct": -0.24}
+{"timestamp": "2026-08-31T13:05:10", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-31T13:05:11", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-31T13:35:06", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 104673.78, "daily_pnl_pct": -0.02}
+{"timestamp": "2026-08-31T13:35:06", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-31T13:35:06", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-31T14:05:05", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 104779.45, "daily_pnl_pct": 0.09}
+{"timestamp": "2026-08-31T14:05:05", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-31T14:05:06", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-31T14:35:06", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 104826.65, "daily_pnl_pct": 0.13}
+{"timestamp": "2026-08-31T14:35:06", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-31T14:35:06", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-31T15:05:04", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 104663.66, "daily_pnl_pct": -0.03}
+{"timestamp": "2026-08-31T15:05:04", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-31T15:05:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-31T15:35:05", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 105307.32, "daily_pnl_pct": 0.59}
+{"timestamp": "2026-08-31T15:35:05", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-31T15:35:05", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-08-31T17:30:03", "event": "run_start", "dry_run": false, "protection_only": false, "equity": 105345.08, "daily_pnl_pct": 0.63}
+{"timestamp": "2026-08-31T17:30:03", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-08-31T17:30:29", "event": "rotation_shadow_signal", "would_sell": "BMY", "held_score": 14.21, "would_buy": "BNY", "candidate_score": 38.91}
+{"timestamp": "2026-08-31T21:18:04", "event": "rotation_shadow_signal", "would_sell": "FDX", "held_score": 15.34, "would_buy": "COP", "candidate_score": 29.62}
+{"timestamp": "2026-08-31T21:18:11", "event": "rotation_shadow_signal", "would_sell": "KO", "held_score": 18.1, "would_buy": "DE", "candidate_score": 28.45}
+{"timestamp": "2026-08-31T21:18:44", "event": "run_end", "reason": "no available position slots"}
+{"timestamp": "2026-09-01T09:35:03", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 106489.46, "daily_pnl_pct": 1.53}
+{"timestamp": "2026-09-01T09:35:03", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-09-01T09:35:03", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-09-01T10:05:07", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 106563.31, "daily_pnl_pct": 1.61}
+{"timestamp": "2026-09-01T10:05:07", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-09-01T10:05:07", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-09-01T10:35:03", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 106085.35, "daily_pnl_pct": 1.15}
+{"timestamp": "2026-09-01T10:35:03", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-09-01T10:35:03", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-09-01T11:05:04", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 105883.22, "daily_pnl_pct": 0.96}
+{"timestamp": "2026-09-01T11:05:04", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-09-01T11:05:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-09-01T11:35:05", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 105656.82, "daily_pnl_pct": 0.74}
+{"timestamp": "2026-09-01T11:35:05", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-09-01T11:35:06", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-09-01T12:05:08", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 105241.37, "daily_pnl_pct": 0.34}
+{"timestamp": "2026-09-01T12:05:08", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-09-01T12:05:09", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-09-01T13:05:06", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 104875.26, "daily_pnl_pct": -0.0}
+{"timestamp": "2026-09-01T13:05:06", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-09-01T13:05:06", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-09-01T13:35:05", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 104929.42, "daily_pnl_pct": 0.05}
+{"timestamp": "2026-09-01T13:35:05", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-09-01T13:35:05", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-09-01T14:05:09", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 105118.69, "daily_pnl_pct": 0.23}
+{"timestamp": "2026-09-01T14:05:09", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-09-01T14:05:09", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-09-01T14:35:05", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 105134.42, "daily_pnl_pct": 0.24}
+{"timestamp": "2026-09-01T14:35:05", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-09-01T14:35:06", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-09-01T15:05:06", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 105316.86, "daily_pnl_pct": 0.42}
+{"timestamp": "2026-09-01T15:05:06", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-09-01T15:05:07", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-09-01T15:35:05", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 105641.82, "daily_pnl_pct": 0.73}
+{"timestamp": "2026-09-01T15:35:05", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-09-01T15:35:06", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-09-01T17:30:05", "event": "run_start", "dry_run": false, "protection_only": false, "equity": 105972.4, "daily_pnl_pct": 1.04}
+{"timestamp": "2026-09-01T17:30:05", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
+{"timestamp": "2026-09-01T17:30:33", "event": "rotation_shadow_signal", "would_sell": "KO", "held_score": 3.4, "would_buy": "DE", "candidate_score": 40.36}
+{"timestamp": "2026-09-01T21:56:23", "event": "rotation_shadow_signal", "would_sell": "BMY", "held_score": 3.49, "would_buy": "VZ", "candidate_score": 17.44}
+{"timestamp": "2026-09-01T21:56:32", "event": "rotation_shadow_signal", "would_sell": "FDX", "held_score": 11.38, "would_buy": "AAPL", "candidate_score": 14.67}
+{"timestamp": "2026-09-01T21:56:39", "event": "run_end", "reason": "no available position slots"}

@@ -1,0 +1,67 @@
+name: Quant Desk - Main Run
+
+# Runs independently of any local machine's power state — this exists specifically
+# because the laptop this used to run on can be off, shut down, or asleep at 5:30pm.
+#
+# Cron is UTC-only and doesn't know about US DST, so both possible UTC times for
+# 5:30pm US/Eastern are scheduled; the "gate" step below computes the real current
+# Eastern time and skips the one that's off by an hour for the current season,
+# rather than trying to maintain two separate cron schedules across DST changes.
+on:
+  schedule:
+    - cron: "30 21 * * 1-5"  # 5:30pm EDT (UTC-4)
+    - cron: "30 22 * * 1-5"  # 5:30pm EST (UTC-5)
+  workflow_dispatch: {}       # manual trigger, for testing
+
+permissions:
+  contents: write
+
+concurrency:
+  group: quant-desk-runner
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Gate on actual US/Eastern time (handles DST without double-firing)
+        id: gate
+        run: |
+          hm=$(TZ="America/New_York" date +%H%M)
+          echo "Current US/Eastern time: $hm"
+          if [ "$hm" -ge "1715" ] && [ "$hm" -le "1759" ]; then
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/setup-python@v5
+        if: steps.gate.outputs.skip == 'false'
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        if: steps.gate.outputs.skip == 'false'
+        run: pip install -r requirements-ci.txt
+
+      - name: Run strategy runner
+        if: steps.gate.outputs.skip == 'false'
+        env:
+          ALPACA_API_KEY_ID: ${{ secrets.ALPACA_API_KEY_ID }}
+          ALPACA_API_SECRET_KEY: ${{ secrets.ALPACA_API_SECRET_KEY }}
+        run: python strategy_runner.py
+        # No --force: the script's own market-must-be-closed guard (which also
+        # converts to US/Eastern) stays active as a second, independent check —
+        # deliberately not relying solely on the gate step above.
+
+      - name: Commit updated state and log
+        if: steps.gate.outputs.skip == 'false'
+        run: |
+          git config user.name "quant-desk-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add runner_log.jsonl protection_state.json
+          git diff --cached --quiet || git commit -m "Main run: automated state update [skip ci]"
+          git pull --rebase --autostash
+          git push
