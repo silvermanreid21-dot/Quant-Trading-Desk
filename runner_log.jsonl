@@ -428,3 +428,4 @@
 {"timestamp": "2026-09-02T12:05:03", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 106563.26, "daily_pnl_pct": 0.37}
 {"timestamp": "2026-09-02T12:05:04", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
 {"timestamp": "2026-09-02T12:05:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-09-02T19:29:33", "event": "halted", "reason": "ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment"}
