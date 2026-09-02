@@ -193,6 +193,14 @@ def verify_and_repair_protection(client, positions_df, state: dict, dry_run: boo
             notify("Quant Desk: repair FAILED", f"{symbol} is unprotected and the auto-repair attempt errored: {e}")
 
 
+# A pure "any improvement counts" rotation trigger (margin=0) backtests at the
+# highest raw return but the lowest avg R-multiple per trade — margin=10 keeps
+# most of the return (311.6% vs 428.6% over the same 5y backtest) while meaningfully
+# improving per-trade quality (avg R 0.09 vs 0.07, best profit factor of the values
+# tested: 1.73). See strategy_backtest.py's rotation_margin sweep.
+ROTATION_MARGIN = 10.0
+
+
 def check_rotation_shadow(positions_df):
     """Observation-only: would today's strongest unheld signal outrank our
     weakest-ranked holding under the composite score validated in
@@ -235,7 +243,7 @@ def check_rotation_shadow(positions_df):
     scored_candidates.sort(key=lambda x: x[0], reverse=True)
 
     for (cand_score, csym), (held_score, hsym) in zip(scored_candidates, scored_held):
-        if cand_score <= held_score:
+        if cand_score <= held_score + ROTATION_MARGIN:
             break  # sorted best-candidate-vs-weakest-holding; no further pair will improve on this
         log_event("rotation_shadow_signal", would_sell=hsym, held_score=round(held_score, 2),
                    would_buy=csym, candidate_score=round(cand_score, 2))

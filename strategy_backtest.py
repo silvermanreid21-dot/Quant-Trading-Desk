@@ -53,7 +53,7 @@ def download_universe(tickers: list[str]) -> dict[str, pd.DataFrame]:
     return data
 
 
-def run_backtest(price_data: dict[str, pd.DataFrame], params: dict = None, trailing_stop: bool = False, rotation: str = None) -> dict:
+def run_backtest(price_data: dict[str, pd.DataFrame], params: dict = None, trailing_stop: bool = False, rotation: str = None, rotation_margin: float = 0.0) -> dict:
     signals = {t: strategy.compute_signals(df, params) for t, df in price_data.items()}
     signals = {t: s for t, s in signals.items() if not s.empty}
 
@@ -175,13 +175,15 @@ def run_backtest(price_data: dict[str, pd.DataFrame], params: dict = None, trail
                 for sym, pos in open_positions.items():
                     if pos["entry_date"] == today:
                         continue  # give a fresh entry at least one day before it's rotation-eligible
+                    if today not in price_data[sym].index:
+                        continue  # this symbol has a data gap on today's date specifically
                     s = strategy.rotation_score(price_data[sym], today, rotation)
                     if not np.isnan(s):
                         scored_held.append((s, sym))
                 scored_held.sort(key=lambda x: x[0])  # weakest first
 
                 for (cand_score, csym, cstop, ctarget), (held_score, hsym) in zip(scored_candidates, scored_held):
-                    if cand_score <= held_score:
+                    if cand_score <= held_score + rotation_margin:
                         break  # sorted best-candidate-vs-weakest-holding; no further pair will improve on this
                     pos = open_positions[hsym]
                     exit_price = float(price_data[hsym].loc[today, "Close"])
