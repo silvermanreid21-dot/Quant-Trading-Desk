@@ -50,9 +50,21 @@ Open a fresh terminal afterward — `setx` doesn't propagate into already-runnin
 .venv\Scripts\python strategy_runner.py --protection-only  # audit/repair held-position stops only
 ```
 
-For unattended scheduling, point Windows Task Scheduler at `.venv\Scripts\python.exe strategy_runner.py`, timed for after market close on weekdays. If the task is set to run whether logged on or not, make sure `DisallowStartIfOnBatteries` is off if this runs on a laptop that isn't always plugged in — Task Scheduler silently skips the run otherwise.
+### Scheduling: GitHub Actions (recommended)
 
-Alpaca's bracket/OCO exit legs have been observed to silently expire/cancel shortly after entry fill, leaving a held position with no live stop-loss or take-profit. `strategy_runner.py` self-heals this on every run (using `protection_state.json`, a local file recording each position's original stop/target — not committed, since it's runtime state). A second scheduled task runs `--protection-only` every 30 minutes during market hours (9:35am-4:00pm ET, weekdays) so a vanished stop doesn't sit unprotected until the next full run.
+`.github/workflows/main-run.yml` and `protection-check.yml` replicate the schedule below independent of any local machine's power state — this exists because a laptop that's off, asleep, or (on Modern Standby hardware) just has its lid closed will silently miss or stall a scheduled run. Each workflow gates on the actual US/Eastern clock to handle DST correctly without double-firing.
+
+Setup: add `ALPACA_API_KEY_ID` and `ALPACA_API_SECRET_KEY` as **repository secrets** (Settings → Secrets and variables → Actions → New repository secret) — do this yourself in the GitHub UI, never by pasting keys into a chat or committing them to a file. That's the only setup step; both workflows install `requirements-ci.txt` (excludes `win11toast`/`winrt`, which are Windows-only and won't install on Ubuntu runners — so **desktop toast notifications don't fire for cloud-triggered runs**, only for ones run locally by hand).
+
+`runner_log.jsonl` and `protection_state.json` are committed to the repo (not gitignored) so state persists across runs — Actions runners are ephemeral, nothing survives on local disk between invocations. Each workflow run commits its own updates back automatically.
+
+The kill switch (`RUNNER_DISABLED`) only stops a *local* run — it has no effect on the cloud schedule. To halt cloud runs, disable the workflow itself (Actions tab → select workflow → "..." → Disable workflow).
+
+### Scheduling: Windows Task Scheduler (local, legacy)
+
+Point Windows Task Scheduler at `.venv\Scripts\python.exe strategy_runner.py`, timed for after market close on weekdays, with a second task running `--protection-only` every 30 minutes during market hours (9:35am-4:00pm ET). If the task is set to run whether logged on or not, make sure `DisallowStartIfOnBatteries` is off if this runs on a laptop that isn't always plugged in. Note: on hardware that only supports Modern Standby, there's no lid-close-action setting to configure at all, and closing the lid will throttle/stall a running scan for hours — the GitHub Actions path above avoids this entirely.
+
+Alpaca's bracket/OCO exit legs have been observed to silently expire/cancel shortly after entry fill, leaving a held position with no live stop-loss or take-profit. `strategy_runner.py` self-heals this on every run using `protection_state.json`.
 
 New entries use a trailing stop instead of a fixed take-profit: a plain market entry, then an Alpaca-native `TRAILING_STOP` sell order (trail distance = 3x ATR, set once at entry) submitted once shares are actually held — backtested to meaningfully outperform the old fixed 2:1 target by letting winners run instead of capping them (`strategy_backtest.py v2-trailing` vs `v2`). Positions opened before 2026-08-17 keep their original fixed OCO stop/target; the protection-check logic handles both kinds side by side.
 
