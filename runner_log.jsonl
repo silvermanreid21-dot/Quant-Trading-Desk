@@ -514,3 +514,4 @@
 {"timestamp": "2026-09-04T17:30:32", "event": "rotation_shadow_signal", "would_sell": "BMY", "held_score": 1.09, "would_buy": "MU", "candidate_score": 28.98}
 {"timestamp": "2026-09-04T17:30:39", "event": "rotation_shadow_signal", "would_sell": "KO", "held_score": 4.35, "would_buy": "GILD", "candidate_score": 26.18}
 {"timestamp": "2026-09-04T17:30:57", "event": "run_end", "reason": "no available position slots"}
+{"timestamp": "2026-09-07T18:14:00", "event": "halted", "reason": "ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment"}
