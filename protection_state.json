@@ -18,10 +18,5 @@
     "qty": 316,
     "trailing": true,
     "trail_price": 5.2
-  },
-  "KO": {
-    "qty": 236,
-    "trailing": true,
-    "trail_price": 4.89
   }
 }
