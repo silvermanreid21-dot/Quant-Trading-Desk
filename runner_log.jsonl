@@ -521,3 +521,4 @@
 {"timestamp": "2026-09-07T11:28:57", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "KO", "MRK"], "pending": ["BMY", "CVX", "FDX", "KO", "MRK"], "available_slots": 0}
 {"timestamp": "2026-09-07T11:28:57", "event": "run_end", "reason": "protection-only run"}
 {"timestamp": "2026-09-07T18:14:00", "event": "halted", "reason": "ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment"}
+{"timestamp": "2026-09-08T17:14:51", "event": "halted", "reason": "ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment"}
