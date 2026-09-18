@@ -562,3 +562,4 @@
 {"timestamp": "2026-09-15T17:38:56", "event": "halted", "reason": "ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment"}
 {"timestamp": "2026-09-16T17:36:14", "event": "halted", "reason": "ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment"}
 {"timestamp": "2026-09-17T17:36:14", "event": "halted", "reason": "ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment"}
+{"timestamp": "2026-09-18T17:03:03", "event": "halted", "reason": "ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment"}
