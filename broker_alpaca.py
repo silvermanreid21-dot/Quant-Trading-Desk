@@ -23,6 +23,18 @@ from alpaca.trading.requests import (
 )
 
 
+def _to_alpaca_symbol(symbol: str) -> str:
+    """The universe/data layer uses Yahoo Finance's share-class formatting
+    (BRK-B, hyphen) since that's what yfinance requires; Alpaca rejects that and
+    expects a dot instead (BRK.B) -- submitting the hyphenated form fails with
+    "asset not found" (hit live for BRK-B on 2026-09-16). Translate only at the
+    broker boundary so the data/signal layer never has to know Alpaca's format."""
+    symbol = symbol.upper()
+    if len(symbol) >= 3 and symbol[-2] == "-" and symbol[-1].isalpha():
+        return symbol[:-2] + "." + symbol[-1]
+    return symbol
+
+
 def get_credential_from_env(name: str) -> str | None:
     """Reads a credential, preferring the live Windows registry value over the
     process's own os.environ. `setx` writes ALPACA_API_KEY_ID / _SECRET_KEY to
@@ -117,7 +129,7 @@ def place_bracket_order(
         raise ValueError("quantity must be positive")
 
     order_req = LimitOrderRequest(
-        symbol=symbol.upper(),
+        symbol=_to_alpaca_symbol(symbol),
         qty=quantity,
         side=OrderSide.BUY if action == "BUY" else OrderSide.SELL,
         time_in_force=TimeInForce.GTC,
@@ -147,7 +159,7 @@ def place_bracket_market_order(
         raise ValueError("quantity must be positive")
 
     order_req = MarketOrderRequest(
-        symbol=symbol.upper(),
+        symbol=_to_alpaca_symbol(symbol),
         qty=quantity,
         side=OrderSide.BUY if action == "BUY" else OrderSide.SELL,
         time_in_force=TimeInForce.DAY,
@@ -169,7 +181,7 @@ def place_market_entry_order(client: TradingClient, symbol: str, action: str, qu
         raise ValueError("quantity must be positive")
 
     order_req = MarketOrderRequest(
-        symbol=symbol.upper(),
+        symbol=_to_alpaca_symbol(symbol),
         qty=quantity,
         side=OrderSide.BUY if action == "BUY" else OrderSide.SELL,
         time_in_force=TimeInForce.DAY,
@@ -189,7 +201,7 @@ def place_trailing_stop_exit_order(client: TradingClient, symbol: str, quantity:
         raise ValueError("quantity must be positive")
 
     order_req = TrailingStopOrderRequest(
-        symbol=symbol.upper(),
+        symbol=_to_alpaca_symbol(symbol),
         qty=quantity,
         side=OrderSide.SELL,
         time_in_force=TimeInForce.GTC,
@@ -213,7 +225,7 @@ def place_oco_exit_order(
         raise ValueError("quantity must be positive")
 
     order_req = LimitOrderRequest(
-        symbol=symbol.upper(),
+        symbol=_to_alpaca_symbol(symbol),
         qty=quantity,
         side=OrderSide.SELL,
         time_in_force=TimeInForce.GTC,
