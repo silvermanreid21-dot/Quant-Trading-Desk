@@ -552,15 +552,61 @@
 {"timestamp": "2026-09-08T15:36:55", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "MRK"], "pending": ["BMY", "CVX", "FDX", "MRK"], "available_slots": 1}
 {"timestamp": "2026-09-08T15:36:55", "event": "run_end", "reason": "protection-only run"}
 {"timestamp": "2026-09-08T17:14:51", "event": "halted", "reason": "ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment"}
+{"timestamp": "2026-09-08T16:05:05", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 103609.7, "daily_pnl_pct": -1.72}
+{"timestamp": "2026-09-08T16:05:05", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "MRK"], "pending": ["BMY", "CVX", "FDX", "MRK"], "available_slots": 1}
+{"timestamp": "2026-09-08T16:05:05", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-09-08T16:35:03", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 103400.81, "daily_pnl_pct": -1.92}
+{"timestamp": "2026-09-08T16:35:03", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "MRK"], "pending": ["BMY", "CVX", "FDX", "MRK"], "available_slots": 1}
+{"timestamp": "2026-09-08T16:35:03", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-09-08T17:30:03", "event": "run_start", "dry_run": false, "protection_only": false, "equity": 103759.81, "daily_pnl_pct": -1.58}
+{"timestamp": "2026-09-08T17:30:03", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "MRK"], "pending": ["BMY", "CVX", "FDX", "MRK"], "available_slots": 1}
+{"timestamp": "2026-09-08T17:30:06", "event": "signal_skipped", "symbol": "AMD", "reason": "options flow gate: put skew 6.2% > 5% (downside protection demand)"}
+{"timestamp": "2026-09-08T17:30:16", "event": "order_submitted", "symbol": "INTC", "qty": 189, "trail_price": 16.45, "order_id": "5dd1d75b-2402-4162-87a6-082bd9fff33f"}
+{"timestamp": "2026-09-09T09:35:06", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 103705.53, "daily_pnl_pct": 0.31}
+{"timestamp": "2026-09-09T09:35:06", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "INTC", "MRK"], "pending": ["BMY", "CVX", "FDX", "MRK"], "available_slots": 0}
+{"timestamp": "2026-09-09T09:35:06", "event": "protection_repaired", "symbol": "INTC", "order_id": "b8d9bf9d-8878-4dc7-bef0-e1ff92dd2c5f", "qty": 189, "trail_price": 16.45}
+{"timestamp": "2026-09-09T09:35:13", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-09-09T10:05:06", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 104582.25, "daily_pnl_pct": 1.16}
+{"timestamp": "2026-09-09T10:05:06", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "INTC", "MRK"], "pending": ["BMY", "CVX", "FDX", "INTC", "MRK"], "available_slots": 0}
+{"timestamp": "2026-09-09T10:05:07", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-09-09T10:35:05", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 103929.58, "daily_pnl_pct": 0.52}
+{"timestamp": "2026-09-09T10:35:05", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "INTC", "MRK"], "pending": ["BMY", "CVX", "FDX", "INTC", "MRK"], "available_slots": 0}
+{"timestamp": "2026-09-09T10:35:06", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-09-09T11:05:05", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 103819.9, "daily_pnl_pct": 0.42}
+{"timestamp": "2026-09-09T11:05:05", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "INTC", "MRK"], "pending": ["BMY", "CVX", "FDX", "INTC", "MRK"], "available_slots": 0}
+{"timestamp": "2026-09-09T11:05:06", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-09-09T11:35:05", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 103659.68, "daily_pnl_pct": 0.26}
+{"timestamp": "2026-09-09T11:35:05", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "INTC", "MRK"], "pending": ["BMY", "CVX", "FDX", "INTC", "MRK"], "available_slots": 0}
+{"timestamp": "2026-09-09T11:35:06", "event": "run_end", "reason": "protection-only run"}
 {"timestamp": "2026-09-09T17:08:14", "event": "halted", "reason": "ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment"}
 {"timestamp": "2026-09-09T19:59:33", "event": "halted", "reason": "ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment"}
+{"timestamp": "2026-09-09T20:05:08", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 103885.41, "daily_pnl_pct": 0.48}
+{"timestamp": "2026-09-09T20:05:09", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "INTC", "MRK"], "pending": ["BMY", "CVX", "FDX", "INTC", "MRK"], "available_slots": 0}
+{"timestamp": "2026-09-09T20:05:09", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-09-09T20:35:05", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 103794.69, "daily_pnl_pct": 0.39}
+{"timestamp": "2026-09-09T20:35:05", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "INTC", "MRK"], "pending": ["BMY", "CVX", "FDX", "INTC", "MRK"], "available_slots": 0}
+{"timestamp": "2026-09-09T20:35:05", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-09-09T21:05:04", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 103656.72, "daily_pnl_pct": 0.26}
+{"timestamp": "2026-09-09T21:05:04", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "INTC", "MRK"], "pending": ["BMY", "CVX", "FDX", "INTC", "MRK"], "available_slots": 0}
+{"timestamp": "2026-09-09T21:05:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-09-09T21:35:04", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 103500.19, "daily_pnl_pct": 0.11}
+{"timestamp": "2026-09-09T21:35:04", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "INTC", "MRK"], "pending": ["BMY", "CVX", "FDX", "INTC", "MRK"], "available_slots": 0}
+{"timestamp": "2026-09-09T21:35:04", "event": "run_end", "reason": "protection-only run"}
+{"timestamp": "2026-09-09T22:05:04", "event": "run_start", "dry_run": false, "protection_only": true, "equity": 103612.71, "daily_pnl_pct": 0.22}
+{"timestamp": "2026-09-09T22:05:04", "event": "portfolio_state", "held": ["BMY", "CVX", "FDX", "INTC", "MRK"], "pending": ["BMY", "CVX", "FDX", "INTC", "MRK"], "available_slots": 0}
+{"timestamp": "2026-09-09T22:05:04", "event": "run_end", "reason": "protection-only run"}
 {"timestamp": "2026-09-10T16:58:16", "event": "halted", "reason": "ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment"}
 {"timestamp": "2026-09-10T19:33:59", "event": "halted", "reason": "ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment"}
 {"timestamp": "2026-09-11T17:00:25", "event": "halted", "reason": "ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment"}
 {"timestamp": "2026-09-11T19:35:23", "event": "halted", "reason": "ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment"}
 {"timestamp": "2026-09-14T18:32:51", "event": "halted", "reason": "ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment"}
 {"timestamp": "2026-09-15T17:38:56", "event": "halted", "reason": "ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment"}
+{"timestamp": "2026-09-16T17:30:19", "event": "run_start", "dry_run": false, "protection_only": false, "equity": 102456.25, "daily_pnl_pct": 0.73}
+{"timestamp": "2026-09-16T17:30:20", "event": "portfolio_state", "held": ["BMY", "INTC"], "pending": ["BMY", "INTC"], "available_slots": 3}
+{"timestamp": "2026-09-16T17:30:23", "event": "order_submitted", "symbol": "AMD", "qty": 39, "trail_price": 69.97, "order_id": "51d2c843-2026-41f0-a3dd-d0ec64abbfec"}
+{"timestamp": "2026-09-16T17:30:34", "event": "order_error", "symbol": "BRK-B", "error": "{\"code\":42210000,\"message\":\"asset \\\"BRK-B\\\" not found\"}"}
 {"timestamp": "2026-09-16T17:36:14", "event": "halted", "reason": "ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment"}
+{"timestamp": "2026-09-17T13:38:46", "event": "run_end", "submitted": 1}
 {"timestamp": "2026-09-17T17:36:14", "event": "halted", "reason": "ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment"}
 {"timestamp": "2026-09-18T17:03:03", "event": "halted", "reason": "ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment"}
 {"timestamp": "2026-09-18T19:33:33", "event": "halted", "reason": "ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment"}
