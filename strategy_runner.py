@@ -84,7 +84,7 @@ import broker_alpaca
 import strategy
 from data import get_history
 from modules import options_flow
-from universe import SP100
+from universe import SP100, company_key
 
 try:
     from win11toast import toast
@@ -305,6 +305,7 @@ def main():
     orders_df = broker_alpaca.get_open_orders(client)
     pending_symbols = set(orders_df["symbol"]) if not orders_df.empty else set()
     committed_symbols = held_symbols | pending_symbols
+    committed_companies = {company_key(s) for s in committed_symbols}
 
     available_slots = MAX_CONCURRENT_POSITIONS - len(committed_symbols)
     log_event("portfolio_state", held=sorted(held_symbols), pending=sorted(pending_symbols), available_slots=available_slots)
@@ -336,6 +337,9 @@ def main():
         if submitted >= available_slots:
             break
         if symbol in committed_symbols:
+            continue
+        if company_key(symbol) in committed_companies:
+            log_event("signal_skipped", symbol=symbol, reason=f"already committed to same company ({company_key(symbol)})")
             continue
         try:
             df = get_history(symbol, period="2y")
@@ -382,6 +386,8 @@ def main():
                 log_event("order_submitted", symbol=symbol, qty=qty, trail_price=trail_price, order_id=str(order.id))
                 protection_state[symbol] = {"qty": qty, "trailing": True, "trail_price": trail_price}
                 save_protection_state(protection_state)
+                committed_symbols.add(symbol)
+                committed_companies.add(company_key(symbol))
                 notify("Quant Desk: new entry", f"{symbol} x{qty} submitted for next open. Trailing stop ${trail_price} once filled.")
             except Exception as e:
                 log_event("order_error", symbol=symbol, error=str(e))

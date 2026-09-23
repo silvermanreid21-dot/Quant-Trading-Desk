@@ -21,3 +21,18 @@ SP100 = [
     "QCOM", "RTX", "SBUX", "SCHW", "SO", "SPG", "T", "TMO", "TMUS", "TSLA",
     "TXN", "UBER", "UNH", "UNP", "UPS", "USB", "V", "VZ", "WFC", "WMT", "XOM",
 ]
+
+# Tickers in the list above that are just different share classes of the same
+# underlying company (e.g. GOOG/GOOGL) -- left as separate SP100 entries since
+# each has its own price/volume history, but they move together and shouldn't
+# both be entered as if they were independent, diversified positions.
+SAME_COMPANY = {
+    "GOOG": "ALPHABET",
+    "GOOGL": "ALPHABET",
+}
+
+
+def company_key(symbol: str) -> str:
+    """Canonical grouping key for entry-time dedup: same key means same underlying
+    company. Symbols with no listed share-class sibling just key off themselves."""
+    return SAME_COMPANY.get(symbol, symbol)

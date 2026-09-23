@@ -1,9 +1,4 @@
 {
-  "BMY": {
-    "qty": 316,
-    "trailing": true,
-    "trail_price": 5.2
-  },
   "INTC": {
     "qty": 189,
     "trailing": true,
@@ -13,5 +8,20 @@
     "qty": 39,
     "trailing": true,
     "trail_price": 69.97
+  },
+  "DHR": {
+    "qty": 101,
+    "trailing": true,
+    "trail_price": 17.25
+  },
+  "GOOG": {
+    "qty": 62,
+    "trailing": true,
+    "trail_price": 24.31
+  },
+  "GOOGL": {
+    "qty": 61,
+    "trailing": true,
+    "trail_price": 25.21
   }
 }

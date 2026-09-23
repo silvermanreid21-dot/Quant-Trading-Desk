@@ -611,6 +611,13 @@
 {"timestamp": "2026-09-18T17:03:03", "event": "halted", "reason": "ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment"}
 {"timestamp": "2026-09-18T19:33:33", "event": "halted", "reason": "ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment"}
 {"timestamp": "2026-09-21T18:37:29", "event": "halted", "reason": "ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment"}
+{"timestamp": "2026-09-21T17:30:04", "event": "run_start", "dry_run": false, "protection_only": false, "equity": 109432.49, "daily_pnl_pct": 4.45}
+{"timestamp": "2026-09-21T17:30:04", "event": "portfolio_state", "held": ["AMD", "INTC"], "pending": ["INTC"], "available_slots": 3}
+{"timestamp": "2026-09-21T17:30:04", "event": "protection_repaired", "symbol": "AMD", "order_id": "51ba9634-1bf9-4c46-bb2a-07ab935d7738", "qty": 39, "trail_price": 69.97}
+{"timestamp": "2026-09-21T17:30:19", "event": "order_submitted", "symbol": "DHR", "qty": 101, "trail_price": 17.25, "order_id": "fd1b4cdb-5c43-4ad9-b4db-11dc2a865b0f"}
+{"timestamp": "2026-09-21T17:30:29", "event": "order_submitted", "symbol": "GOOG", "qty": 62, "trail_price": 24.31, "order_id": "987b7aea-d3ef-4eef-b38a-d107211b052c"}
+{"timestamp": "2026-09-21T17:30:36", "event": "order_submitted", "symbol": "GOOGL", "qty": 61, "trail_price": 25.21, "order_id": "aaabacac-e6b9-4822-b959-e57d66fa384b"}
+{"timestamp": "2026-09-21T17:30:43", "event": "run_end", "submitted": 3}
 {"timestamp": "2026-09-22T17:37:08", "event": "halted", "reason": "ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment"}
 {"timestamp": "2026-09-23T17:49:44", "event": "halted", "reason": "ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment"}
 {"timestamp": "2026-09-24T17:50:24", "event": "halted", "reason": "ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment"}

@@ -14,7 +14,7 @@ import pandas as pd
 import yfinance as yf
 
 import strategy
-from universe import SP100
+from universe import SP100, company_key
 
 INITIAL_CAPITAL = 100_000.0
 RISK_PER_TRADE_PCT = 0.02
@@ -151,13 +151,19 @@ def run_backtest(price_data: dict[str, pd.DataFrame], params: dict = None, trail
         # 4) scan for new entries (queued for tomorrow's open) if not breached
         if not breached:
             room = MAX_CONCURRENT_POSITIONS - len(open_positions)
+            held_companies = {company_key(sym) for sym in open_positions}
             candidates = []
+            claimed_companies = set()
             for sym, sig in signals.items():
                 if sym in open_positions or today not in sig.index:
+                    continue
+                ck = company_key(sym)
+                if ck in held_companies or ck in claimed_companies:
                     continue
                 row = sig.loc[today]
                 if bool(row["entry_signal"]):
                     candidates.append((sym, float(row["stop_price"]), float(row["target_price"])))
+                    claimed_companies.add(ck)
             for sym, stop_price, target_price in candidates[:room]:
                 pending_entries.append((sym, stop_price, target_price, today))
 
