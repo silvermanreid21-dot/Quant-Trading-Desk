@@ -637,3 +637,4 @@
 {"timestamp": "2026-10-01T22:32:04", "event": "signal_skipped", "symbol": "EMR", "reason": "options flow gate: put skew 11.6% > 5% (downside protection demand)"}
 {"timestamp": "2026-10-01T22:32:06", "event": "order_submitted", "symbol": "GEV", "qty": 21, "trail_price": 108.85, "order_id": "26bd3ba2-bb4c-49a8-afe1-abd45fed1aa5"}
 {"timestamp": "2026-10-01T22:32:12", "event": "run_end", "submitted": 1}
+{"timestamp": "2026-10-02T18:21:13", "event": "halted", "reason": "ALPACA_API_KEY_ID / ALPACA_API_SECRET_KEY not set in environment"}
