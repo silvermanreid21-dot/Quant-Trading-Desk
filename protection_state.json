@@ -19,9 +19,9 @@
     "trailing": true,
     "trail_price": 24.31
   },
-  "GOOGL": {
-    "qty": 61,
+  "GEV": {
+    "qty": 21,
     "trailing": true,
-    "trail_price": 25.21
+    "trail_price": 108.85
   }
 }
